@@ -345,11 +345,11 @@ finds a new home in Jakarta Commons (or is removed from CLRA project)
 </target>
 
 <target name="app-ejb.deploy" depends="app-ejb.jar">
-  <copy file="${jar.dest}/${file.app.ejb-jar}" todir="${env.JBOSS_DIST}/deploy" />
+  <copy file="${jar.dest}/${file.app.ejb-jar}" todir="${env.JBOSS_DIST}/server/default/deploy" />
 </target>
 
 <target name="app-ejb.undeploy">
-  <delete file="${env.JBOSS_DIST}/deploy/${file.app.ejb-jar}"/>
+  <delete file="${env.JBOSS_DIST}/server/default/deploy/${file.app.ejb-jar}"/>
 </target>
 
 
@@ -417,11 +417,11 @@ finds a new home in Jakarta Commons (or is removed from CLRA project)
 </target>
 
 <target name="app-war.deploy" depends="app-war.jar">
-  <copy file="${jar.dest}/${file.app.war-jar}" todir="${env.JBOSS_DIST}/deploy" />
+  <copy file="${jar.dest}/${file.app.war-jar}" todir="${env.JBOSS_DIST}/server/default/deploy" />
 </target>
 
 <target name="app-war.undeploy">
-  <delete file="${env.JBOSS_DIST}/deploy/${file.app.war-jar}"/>
+  <delete file="${env.JBOSS_DIST}/server/default/deploy/${file.app.war-jar}"/>
 </target>
 
 
@@ -488,11 +488,11 @@ finds a new home in Jakarta Commons (or is removed from CLRA project)
 </target>
 
 <target name="xml-war.deploy" depends="xml-war.jar">
-  <copy file="${jar.dest}/${file.xml.war-jar}" todir="${env.JBOSS_DIST}/deploy" />
+  <copy file="${jar.dest}/${file.xml.war-jar}" todir="${env.JBOSS_DIST}/server/default/deploy" />
 </target>
 
 <target name="xml-war.undeploy">
-  <delete file="${env.JBOSS_DIST}/deploy/${file.xml.war-jar}"/>
+  <delete file="${env.JBOSS_DIST}/server/default/deploy/${file.xml.war-jar}"/>
 </target>
 
 
@@ -532,11 +532,11 @@ finds a new home in Jakarta Commons (or is removed from CLRA project)
 </target>
 
 <target name="app-ear.deploy" depends="app-ear.jar">
-  <copy file="${jar.dest}/${file.app.ear-jar}" todir="${env.JBOSS_DIST}/deploy" />
+  <copy file="${jar.dest}/${file.app.ear-jar}" todir="${env.JBOSS_DIST}/server/default/deploy" />
 </target>
 
 <target name="app-ear.undeploy">
-  <delete file="${env.JBOSS_DIST}/deploy/${file.app.ear-jar}"/>
+  <delete file="${env.JBOSS_DIST}/server/default/deploy/${file.app.ear-jar}"/>
 </target>
 
 
@@ -648,11 +648,11 @@ finds a new home in Jakarta Commons (or is removed from CLRA project)
 
 <target name="javadoc-war.deploy" depends="javadoc-war.jar">
   <copy file="${jar.dest}/${file.javadoc.war-jar}"
-        todir="${env.JBOSS_DIST}/deploy" />
+        todir="${env.JBOSS_DIST}/server/default/deploy" />
 </target>
 
 <target name="javadoc-war.undeploy">
-  <delete file="${env.JBOSS_DIST}/deploy/${file.javadoc.war-jar}"/>
+  <delete file="${env.JBOSS_DIST}/server/default/deploy/${file.javadoc.war-jar}"/>
 </target>
 
 
