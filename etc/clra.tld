@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE taglib
+  PUBLIC "-//Sun Microsystems, Inc.//DTD JSP Tag Library 1.1//EN"
+  "http://java.sun.com/j2ee/dtds/web-jsptaglibrary_1_1.dtd">
+
+<taglib>
+  <tlibversion>1.0</tlibversion>
+  <jspversion>1.1</jspversion>
+  <shortname>Application Tag Library</shortname>
+  <uri>http://marsogames.world/clra-test/signup</uri>
+  <info>
+    This tag library contains functionality specific to the CLRA
+    Rowing Signup Application.
+  </info>
+
+  <tag>
+    <name>member</name>
+    <tagclass>com.clra.web.MemberTag</tagclass>
+    <bodycontent>empty</bodycontent>
+    <info>
+      Returns the currently authenticated user to the session context
+      under the specified key, and looks up the specified property on
+      the member. If no key is specified, the default key "clraMember"
+      is used. If no property is specified, the default "fullName" property
+      is used.
+
+
+      key - The key under which the member is stored in the session context.
+            [clraMember]
+
+
+      property - The property to look up. [fullName]
+                 Possible values are: "accountName", "street1", "street2",
+                 "city", "state", "zip", "birthDate", "clraStatus", "email",
+                 "memberId", "fullName", "lastName", "firstName", "middleName",
+                 "suffix", "eveningPhone", "dayPhone", "otherPhone"
+    </info>
+    <attribute>
+      <name>key</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <attribute>
+      <name>property</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+  </tag>
+
+  <tag>
+    <name>monthViewSelector</name>
+    <tagclass>com.clra.web.MonthViewSelectorTag</tagclass>
+    <info>
+      Generate a group of 12 hyperlinks that allow a user to restrict
+      an IEventViewList to a particular month and year.
+
+      currentMonth - FIXME
+                     [Xxx]
+
+      page         - FIXME
+                     [Yyy]
+
+    </info>
+    <attribute>
+      <name>page</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <attribute>
+      <name>currentMonth</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+  </tag>
+
+  <tag>
+    <name>yearViewSelector</name>
+    <tagclass>com.clra.web.YearViewSelectorTag</tagclass>
+    <info>
+      Generate a group of 3 hyperlinks centered around the currentYear
+      that allow a user to restrict an IEventViewList to a particular
+      year.
+
+      currentYear - FIXME
+                     [Xxx]
+
+      page         - FIXME
+                     [Yyy]
+
+    </info>
+    <attribute>
+      <name>page</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <attribute>
+      <name>currentYear</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+  </tag>
+
+  <tag>
+    <name>nameSelector</name>
+    <tagclass>com.clra.web.NameSelectorTag</tagclass>
+    <info>
+      Generate a group of 8 hyperlinks that allow a user to restrict
+      an INameList to a particular group of names.
+
+      currentGroup - FIXME
+                     [Xxx]
+
+      page         - FIXME
+                     [Yyy]
+
+    </info>
+    <attribute>
+      <name>page</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <attribute>
+      <name>currentGroup</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+  </tag>
+
+  <!-- FIXME REMOVEME
+  <tag>
+    <name>formattedDate</name>
+    <tagclass>com.clra.web.FormattedDate</tagclass>
+    <bodycontent>empty</bodycontent>
+    <info>
+      Returns a formatted date.
+
+
+      format - The format specification. See java.text.SimpleDateFormat
+               for a description of formats are specified.
+               [ "EEEE', 'MM/dd/yy" ]
+
+
+      date - The date to format [current system time]
+
+      value - A read-only property with the formatted date as a String.
+
+    </info>
+    <attribute>
+      <name>format</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <attribute>
+      <name>date</name>
+      <required>false</required>
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+  </tag>
+  -->
+
+</taglib>
+

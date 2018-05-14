@@ -1,0 +1,138 @@
+<html>
+<head>
+<title>CLRA ToDo List</title>
+</head>
+
+<body>
+
+<h1>Technical</h1>
+
+<h2>Top Priority</h2>
+<ol>
+ <li> JUnit test for new Oracle date format </li>
+ <li> More and better data, compatible with conversion to mySQL from Oracle<br>
+      Use a repeatable seed for random number generation, to facilitate Oracle
+        to mySQL comparison.
+      </li>
+ <li> Export utility for rowing sessions</li>
+ <li> Export utility for participants</li>
+</ol>
+
+<h2>Important</h2>
+<ul>
+ <li> Clean up ejb build</li>
+ <li> SW: Application ear file</li>
+ <li> More JUnit test scripts</li>
+ <li> Clean up JSP's</li>
+ <li> Testing: better messages on DB constraint violations</li>
+ <li> DB: better constraints to prevent participants on TENATIVE sessions.</li>
+ <li> Remove use of deprecated operations and classes</li>
+ <li> Rename SessionSet to RowingSessionViewList.</li>
+ <li> Rename SessionView to RowingSessionView.</li>
+</ul>
+
+<h2>Later</h2>
+<ul>
+ <li> SW: Breadcrumb and site map specified by XML</li>
+ <li> SW: use JAAS to prevent unsafe use of RowingSession.remove()</li>
+ <li> SW: JNDI instead of property files</li>
+ <li> SW: Calendar instead of Date</li>
+ <li> SW: DataSource instead of JDBC connection</li>
+ <li> SW: Profile JDBC vs EJB</li>
+ <li> SW: Any C++ library to use JMS</li>
+</ul>
+
+<hr>
+<h1>Functionality</h1>
+
+<h2>Top Priority</h2>
+
+ol>
+ <li> Sort Laker List by first or last name</li>
+ <li> Logout</li>
+</ol>
+
+<h2>Important</h2>
+<ul>
+ <li> Boating and Seat data for testing</li>
+ <li> SW:  Coach boating sheets</li>
+ <li> SW:  Member boating status</li>
+ <li> SW:  Coach boat sheets</li>
+ <li> SW:  Guest account</li>
+ <li> HW:  Server options</li>
+ <li> SYS: Hosting options</li>
+ <li> DB:  Move to mySQL</li>
+ <li> DEV: Move to SourceForge</li>
+ <li> SYS: Set up system</li>
+</ul>
+
+<h2>Later</h2>
+<ul>
+ <li> Bulk import of rowing sessions</li>
+ <li> SW:  Attendance sheets</li>
+ <li> SW:  Treasurer accounting sheets</li>
+ <li> SW:  Competition screens</li>
+ <li> SW:  Email passwords</li>
+ <li> SW:  Member account management</li>
+ <li> SW:  Signup screens</li>
+</ul>
+
+<hr>
+<h1>Done</h1>
+
+<h2>Functional</h2>
+<ul>
+ <li> DONE: "Alpabet" selector on Laker List</li>
+      DONE: INameList
+      DONE: IName
+      DONE: IName
+      DONE: MemberSnapshot
+      DONE: MemberView
+ <li> DONE: Member signup sheets</li>
+ <li> DONE: Captain session sheets</li>
+</ul>
+
+<h2>Technical</h2>
+<ul>
+ <li> DONE: Schedule creation utility for rowing sessions</li>
+ <li> DONE: Move to mySQL<br>
+      DONE: AWK script to convert Oracle to mySQL scripts, where possible<br>
+      DONE: New date format on Oracle inserts: YYYY-MM-DD HH:mm:ss<br>
+      </li>
+ <li> DONE: Schedule creation utility for participants</li>
+ <li> DONE: Better data: no participants linked to TENATIVE sessions.</li>
+ <li> DONE: Fake data: no real member info in test data.</li>
+ <li> DONE: Create SourceForge project</li>
+ <li> DONE: Focus on testing and debugging workflows through session
+      management.</li>
+ <li> DONE: Get session management to a reason level of robustness and move on
+      to session enrollment.</li>
+ <li> DONE: Get session management to a reason level of robustness
+      and move on to session enrollment.</li>
+ <li> DONE: Year selector</li>
+ <li> DONE: Workflow bug: refresh sessionlist.jsp after rowingsession.jsp</li>
+ <li> DONE: Get dates on and off the form correctly. There are small bugs
+      apparent now that the database stuff is mainly working.</li>
+ <li> DONE: Get dates in and out of the database correctly. This is one
+      of the last major data integrity issues for sessionlist.</li>
+ <li> DONE: Get "monthly" views to work.
+      This reduces the size of snapshot lists.<br>
+      DONE: Find example of html-creation tag from struts example.<br>
+      DONE: Hack it to print out HTML like sessionMonthSelector.jsp.<br>
+      DONE: Start parameterizing the hack: action, month, year<br>
+      DONE: Continue parameterizing: fonts, text<br>
+      DONE: Write final version in terms of IEventViewList and IEventView.<br>
+      DONE: Modify SessionView to implement IEventView<br>
+      DONE: Modify SessionSet to implement IEventViewList<br>
+      <br>
+      </li>
+ <li> DONE: Dirty flag to prevent unnecessary "store" operations.</li>
+ <li> DONE: Clean up hacked SessionSet code.</li>
+ <li> DONE: Not pulling correct values from form</li>
+ <li> DONE: Not storing all values to datase; e.g. state</li>
+ <li> DONE: SessionSet bugs: replace with cache of EJB's</li>
+</ul>
+
+</body>
+</html>
+

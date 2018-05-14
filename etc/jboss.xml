@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<jboss>
+    <container-configurations />
+    <resource-managers />
+    <enterprise-beans>
+        <entity>
+            <ejb-name>RowingSession</ejb-name>
+            <jndi-name>@jndi-context-root@/RowingSession</jndi-name>
+            <!-- configuration-name></configuration-name -->
+        </entity>
+        <entity>
+            <ejb-name>Participant</ejb-name>
+            <jndi-name>@jndi-context-root@/Participant</jndi-name>
+            <!-- configuration-name></configuration-name -->
+        </entity>
+        <entity>
+            <ejb-name>MemberEJB</ejb-name>
+            <jndi-name>@jndi-context-root@/MemberEJB</jndi-name>
+            <!-- configuration-name></configuration-name -->
+        </entity>
+        <entity>
+            <ejb-name>ApplicantEJB</ejb-name>
+            <jndi-name>@jndi-context-root@/ApplicantEJB</jndi-name>
+            <!-- configuration-name></configuration-name -->
+        </entity>
+    </enterprise-beans>
+</jboss>
+

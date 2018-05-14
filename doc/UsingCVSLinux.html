@@ -1,0 +1,98 @@
+<html>
+<!-- $Id: UsingCVSLinux.html,v 1.1 2002/02/22 19:49:08 rphall Exp $ -->
+<head>
+<title>Using CVS (with Linux)</title>
+</head>
+<body bgcolor="#ffffffff">
+<h1><a name="top">Using CVS (with Linux)</a></h1>
+<p>
+$Revision: 1.1 $<br>
+$Date: 2002/02/22 19:49:08 $</p>
+<p>
+Prepared by Rick Hall, 2/22/2002</p>
+<p>
+This is a brief note describing my experiences so far using CVS, SSH and SourceForge under Linux. It is a work in progress, since there are a few things that I don't have quite right yet.</p>
+
+<p>
+Until recently, I've been using CVS on SourceForge in 'password' mode. Each time I type a command, CVS asks for my password. This works, but it is tedious.</p>
+
+<p>
+About a week ago, I spent some time getting RSA keys to work. Now CVS does not ask for my password, but rather exchanges RSA keys with SSH.</p>
+
+<p>I don't have everything completely working (there's a bit of a kludge getting ssh-agent to run), but I find CVS much more usable. So here is what I did, in case you'd like to try it (or point out how to improve it!).</p>
+
+<p>Procedure:<ol>
+
+<li>The SourceForge documentation is a bit ambiguous about whether SSH1 or SSH2 or both will work with CVS. At one point, the docs state categorically that SSH1 is required; elsewhere the docs imply SSH2 is OK. I decided to play it safe and use SSH1.</li>
+<p>
+However, the first problem is that 'ssh1' is not a valid command on my machine. To invoke SSH1, the correct command is 'ssh -1'. However, the SourceForge docs imply that exporting "CVS_RSH='ssh -1'" will not work. I tried creating an ssh1 alais in my /etc/bashrc config file, but that didn't work either. In the end, I took the brute force approach. I created a file /usr/bin/ssh1 that contained a short script:
+<pre>
+
+  #!/bin/bash
+  /usr/bin/ssh -1 $@
+
+</pre>
+and changed permissions on this file to "a+x". I verified that I could log into SourceForge using this newly minted 'ssh1' command.
+<pre>
+
+  export CVS_RSH=ssh1
+  cvs -z3 -d:ext:rphall@cvs.clra.sourceforge.net:/cvsroot/clra history
+
+</pre>
+
+<li>Per SourceForge documentation (Go to your Account Maintainance page, click on the Edit Keys link and follow the instructions) I created SSH1-compatible RSA keys.</li>
+<p>
+From a command line on my (local) computer:
+<pre>
+
+  ssh-keygen -t rsa1 -f ./.ssh/identity
+
+</pre>
+This created an RSA key in ~/.ssh/identity and a public key in ~/.ssh/identity.pub.</p>
+
+<li>I cut and pasted the contents of my public key into the SourceForge form on the "Edit Keys" page.</li>
+<p>
+The contents were on a single line, but contained embedded spaces. Here's what it looked like, since my public key is, well, public (the qutation marks are delimiters and not part of the key contents):
+<pre>
+
+  "1024 35 13899619466844501320359800988063331471833014905
+   0406128654592710211670078564967537728373381022392226681
+   3081299731058791031225357896138980186060356329398558491
+   6501714023546654312634718113907900315542309686691092850
+   5717386951573651602893147115376708782549824408891378313
+   544466376870749497023213960269834986082579
+   rphall@devserver.dev.penaccess.com"
+
+</pre>
+After about 15 minutes (much shorter than the 6 hours advertised by SourceForge), my new key was active.</p>
+
+<li>I started 'ssh-agent'</li>
+<p>
+<pre>
+
+  ssh-agent
+
+</pre>
+This program should be started when an X session starts, but I haven't figured out how to do this. As a workaround, when ssh-agent starts from a command line, it prints some handy environment variables. I exported these to my environment:
+<pre>
+
+  SSH_AUTH_SOCK=/tmp/ssh-XXDfJN8t/agent.17866; export SSH_AUTH_SOCK;
+  SSH_AGENT_PID=17867; export SSH_AGENT_PID;
+
+</pre>
+</p>
+
+<li>I added my RSA keys to the running ssh-agent</li>
+<p>
+<pre>
+
+  ssh-add
+
+</pre>
+</p>
+
+<li>After this last step, I was able to use CVS on SourceForge (from any terminal in which the ssh-agent environment variables were exported) without typing my SSH password.</li>
+</ol>
+</body>
+</html>
+

@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+
+<!DOCTYPE struts-config PUBLIC
+          "-//Apache Software Foundation//DTD Struts Configuration 1.0//EN"
+          "http://jakarta.apache.org/struts/dtds/struts-config_1_0.dtd">
+
+<struts-config>
+
+
+  <!-- ========== Form Bean Definitions =================================== -->
+  <form-beans>
+
+    <!-- Registration form bean -->
+    <form-bean      name="registrationForm"
+                    type="org.apache.struts.webapp.example.RegistrationForm"/>
+
+    <!-- MemberInfo form bean -->
+    <form-bean      name="memberinfoForm"
+                    type="com.clra.web.MemberInfoForm"/>
+
+    <!-- RowingSession form bean -->
+    <form-bean      name="rowingsessionForm"
+                    type="com.clra.web.RowingSessionForm"/>
+
+    <!-- Participation form bean -->
+    <form-bean      name="participationForm"
+                    type="com.clra.web.ParticipationForm"/>
+
+    <!-- ApplyMemberShip form bean -->
+    <form-bean      name="applymembershipForm"
+                    type="com.clra.web.ApplyMemberShipForm"/>
+
+    </form-beans>
+
+
+  <!-- ========== Global Forward Definitions ============================== -->
+  <global-forwards>
+    <forward   name="logout"      path="/logout.do"/>
+  </global-forwards>
+
+
+  <!-- ========== Action Mapping Definitions ============================== -->
+  <action-mappings>
+
+    <!-- Edit user registration -->
+   <action    path="/editRegistration"
+               type="org.apache.struts.webapp.example.EditRegistrationAction"
+               name="registrationForm"
+              scope="request"
+           validate="false">
+      <forward name="success"           path="/registration.jsp"/>
+    </action>
+
+    <!-- Edit member info -->
+    <action    path="/editMemberInfo"
+               type="com.clra.web.EditMemberInfoAction"
+               name="memberinfoForm"
+               scope="request"
+               validate="false">
+      <forward name="failure"  path="/restricted/membermenu.jsp"/>
+      <forward name="success"  path="/restricted/memberinfo.jsp"/>
+    </action>
+
+    <!-- Edit rowing session -->
+    <action    path="/editRowingSession"
+               type="com.clra.web.EditRowingSessionAction"
+               name="rowingsessionForm"
+              scope="request"
+           validate="false">
+      <forward name="failure"           path="/error.jsp"/>
+      <forward name="success"           path="/admin/rowingsession.jsp"/>
+    </action>
+
+    <!-- Edit participation -->
+    <action    path="/editParticipation"
+               type="com.clra.web.EditParticipationAction"
+               name="participationForm"
+              scope="request"
+           validate="false">
+      <forward name="failure" path="/error.jsp"/>
+      <forward name="success" path="/restricted/enrollment.jsp"/>
+    </action>
+
+    <!-- Process a user logout -->
+    <action    path="/logout"
+               type="com.clra.web.LogoutAction">
+      <!-- forward name="success" path="/logged-off.jsp" / -->
+      <forward name="success" path="/logged-off.jsp" redirect="true"/>
+    </action>
+
+    <!-- Save member info -->
+    <action    path="/saveMemberInfo"
+               type="com.clra.web.SaveMemberInfoAction"
+               name="memberinfoForm"
+              scope="request"
+              input="/restricted/memberinfo.jsp"
+           validate="true">
+      <forward name="success"
+                        path="/restricted/membermenu.jsp" redirect="true"/>
+      <forward name="browse"
+                        path="/admin/membermanage.jsp" redirect="true"/>
+    </action>
+
+    <!-- Save user registration -->
+    <action    path="/saveRegistration"
+               type="org.apache.struts.webapp.example.SaveRegistrationAction"
+               name="registrationForm"
+              scope="request"
+              input="/registration.jsp"/>
+
+    <!-- Save rowing session -->
+    <action    path="/saveRowingSession"
+               type="com.clra.web.SaveRowingSessionAction"
+               name="rowingsessionForm"
+              scope="request"
+              input="/admin/rowingsession.jsp">
+      <forward name="success" path="/admin/sessionlist.jsp" redirect="true"/>
+    </action>
+
+    <!-- Save participation -->
+    <action    path="/saveParticipation"
+               type="com.clra.web.SaveParticipationAction"
+               name="participationForm"
+              scope="request"
+              input="/restricted/enrollment.jsp">
+      <forward name="success"
+              path="/restricted/enrollmentlist.jsp" redirect="true"/>
+    </action>
+
+    <!-- Member Apply -->
+    <action    path="/applymembership"
+               type="com.clra.web.ApplyMemberShipAction"
+               name="applymembershipForm"
+              scope="request"
+              input="/addmember.jsp">
+      <forward name="failure" path="/duplicatemail.jsp"/>
+      <forward name="success" path="/welcome.jsp"/>
+    </action>
+
+  </action-mappings>
+
+</struts-config>

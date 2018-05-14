@@ -1,0 +1,57 @@
+<boat-list>
+	<boat>
+		<boat-name>North Country</boat-name>
+		<boat-size>4</boat-size>
+		<boat-type>SWEEP</boat-type>
+	</boat>
+	<boat>
+		<boat-name>New Laker 4</boat-name>
+		<boat-size>4</boat-size>
+		<boat-type>SWEEP</boat-type>
+	</boat>
+	<boat>
+		<boat-name>Finn</boat-name>
+		<boat-size>8</boat-size>
+		<boat-type>SWEEP</boat-type>
+	</boat>
+	<boat>
+		<boat-name>WL 1</boat-name>
+		<boat-size>8</boat-size>
+		<boat-type>SWEEP</boat-type>
+	</boat>
+	<boat>
+		<boat-name>WL 2</boat-name>
+		<boat-size>8</boat-size>
+		<boat-type>SWEEP</boat-type>
+	</boat>
+	<boat>
+		<boat-name>Old Laker 4</boat-name>
+		<boat-size>4</boat-size>
+		<boat-type>SWEEP</boat-type>
+	</boat>
+	<boat>
+		<boat-name>Unruh</boat-name>
+		<boat-size>8</boat-size>
+		<boat-type>SWEEP</boat-type>
+	</boat>
+	<boat>
+		<boat-name>Finn Meislahn</boat-name>
+		<boat-size>8</boat-size>
+		<boat-type>SWEEP</boat-type>
+	</boat>
+	<boat>
+		<boat-name>Scoop</boat-name>
+		<boat-size>8</boat-size>
+		<boat-type>SWEEP</boat-type>
+	</boat>
+	<boat>
+		<boat-name>Nilsson</boat-name>
+		<boat-size>8</boat-size>
+		<boat-type>SWEEP</boat-type>
+	</boat>
+	<boat>
+		<boat-name>Kashper</boat-name>
+		<boat-size>2</boat-size>
+		<boat-type>SCULL</boat-type>
+	</boat>
+</boat-list>

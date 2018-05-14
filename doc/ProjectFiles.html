@@ -1,0 +1,115 @@
+<html>
+<!-- $Id: ProjectFiles.html,v 1.1 2002/02/22 19:49:08 rphall Exp $ -->
+<head>
+<title>CLRA files and directories</title>
+</head>
+<body bgcolor="#ffffffff">
+<h1><a name="top">CLRA files and directories</a></h1>
+<p>
+$Revision: 1.1 $<br>
+$Date: 2002/02/22 19:49:08 $</p>
+<b>Contents</b>
+<ol>
+ <li><a href="#overview">Overview</a></li>
+ <p> <a href="#controlled"><b>Source-controlled</b></a></p>
+ <li><a href="#bin">Bin directory</a></li>
+ <li><a href="#etc">Etc directory</a></li>
+ <li><a href="#src">Src directory</a></li>
+ <li><a href="#web">Web directory</a></li>
+ <p> <a href="#constructed"><b>Constructed</b></a></p>
+ <li><a href="#dist">Dist directory</li>
+ <li><a href="#tmp">Tmp directory</li>
+</ol>
+<hr>
+<a name="overview"><h1>Overview</h1></a>
+<p>
+The <tt>clra-java</tt> project should be buildable on any machine. The steps for doing a build on a new machine are discussed <a href="BuildProcedure.html">elsewhere</a>. In order to have machine-independent and reproducible builds, the project has the directory structure described here.</p>
+At the top-level of the project tree are two build files: build.bat (for builds on a Windows machine) and build.sh (for builds on a Unix machine). These should be the only files at the top level.
+<p>
+There a set of directories that are maintained under source code control. These directories contain ancillary script files; documentation files (such as this note); configuration data; source code; and HTML, JSP and image files.</p>
+<p>
+There are two directories that are constructed as the part of a build. These directories hold temporary, working copies of output files and (separately) the final products of various build targets.
+<p>
+<a href="#top">Back to top</a></p>
+<a name="controlled"><h1>Source-controlled</h1></a>
+The following directories are maintained under source-code control. There may need to be an additional directory to contain the results of milestone and release builds.
+<a name="bin"><h2>Bin directory</h2></a>
+This directory contains various command-line scripts. For example: to set up a build environment; re-initialize a database to a known state for unit testing; and to kick off recursive unit, functional and load testing.
+<p>
+<a href="#top">Back to top</a></p>
+<a name="etc"><h2>Etc directory</h2></a>
+<p>
+This directory contains configuration data, in the form of xml and sql scripts. Sql scripts are divided between two subdirectories, <tt>sql-mysql</tt> and <tt>sql-oracle</tt>, for MySQL and Oracle scripts respectively. As discussed in the document on database setup, most MySQL scripts are not source-controlled, but rather generated from Oracle scripts by the <tt>oracle-to-mysql.sh</tt> shell script contained in the <tt>bin</tt> directory.</p>
+<p>
+<a href="#top">Back to top</a></p>
+<a name="src"><h2>Src directory</h2></a>
+This directory contains java source code. There are two main branches:
+<ul>
+<li>com/clra</li>
+<li>test/clra</li>
+</ul>
+<p>
+The <tt>com/clra</tt> branch is main source code branch. The <tt>test/clra</tt> branch is a set of recursive JUnit tests that cover the <tt>com/clra</tt> code branches.</p>
+<p>
+Currently, the <tt>com/clra</tt> contains four subdirectories:<ol>
+ <li>util</li>
+ This util directory contains database and error handling routines common across other CLRA packages<p></p>
+ <li>member</li>
+ The member directory contains classes related to member information. In general, classes in this directory reference the Member and MemberRole tables in the CLRA database. The member directory contains one subdirectory called <tt>remote</tt>. Classes at the main level of the member directory are read-only; they do not write to the CLRA database. Classes of the <tt>member/remote</tt> subdirectory are read-write; they are implementation classes for EJB's.<p></p>
+ <li>rowing</li>
+ The rowing directory contains classes related to rowing sessions and participation in rowing sessions. In general, classes in this directory reference the RowingSession and Participant tables of the CLRA database. The rowing directory contains one subdirectory called <tt>remote</tt>. Classes at the main level of the rowing directory are read-only; they do not write to the CLRA database. Classes of the <tt>rowing/remote</tt> subdirectory are read-write; they are implementation classes for EJB's.<p></p>
+ <li>web</li>
+ The web directory contains classes related to workflow and presentation. Classes in the web directory should not directly reference database tables.<p></p></ol>
+<p>
+The directories above are listed in order of dependency. The <tt>util</tt> directory has no dependencies on other CLRA classes. The <tt>member</tt> directory has dependencies on classes in the <tt>util</tt> directory. The <tt>rowing</tt> directory has dependencies on classes in the <tt>util</tt> and <tt>member</tt> directories. The <tt>web</tt> directory depends on all the other directories.</p>
+<p>
+<b>Note: new dependencies should not be introduced between the directories listed above.</b></p>
+<p>It is important that dependencies be minimized if code is to be <b><i>testable</i></b>. With the above structure, testing can occcur in layers. First, <tt>util</tt>ity classes can be tested without regard to classes in any other package. Second, <tt>member</tt> classes can be tested. Because <tt>member</tt> classes depend only on <tt>util</tt>ity classes, and because <tt>util</tt>ity classes are tested first, testing can focus only on functionality defined in the <tt>member</tt> package. Similarly, layering permits testing of the <tt>rowing</tt> and <tt>web</tt> packages can focus strictly on the functionality of the <tt>rowing</tt> and <tt>web</tt> packages. With layering, the complexity of testing grows just linearly with the number of classes. Without layering, when couplings are allowed to multiply without constraint among packages, testing grows exponentially complex with the number of classes.</p>
+<p>
+<a href="#top">Back to top</a></p>
+<a name="web"><h2>Web directory</h2></a>
+This directory contains any JSP and HTML files used by the project. At the top level, it contains files that do not require security, such as the <tt>logon.jsp</tt> screen. It also contains three subdirectories:<ul>
+ <li>admin</li>
+ <li>help</li>
+ <li>restricted</li>
+</ul>
+<p>The <tt>admin</tt> directory contains screens restricted to club administrators. The <tt>help</tt> directory contains help screens. The <tt>restricted</tt> directory contains screens restricted to club members</p>
+<a href="#top">Back to top</a></p>
+<a name="constructed"><h1>Constructed</h1></a>
+These directories are created and populated during a build. They should not be maintained under source control. They should be removed before the start of a milestone or release build or any build in which source files have been removed or renamed. See the build target "clean".
+<a name="dist"><h2>Dist directory</h2></a>
+This directory contains the output of builds. There are three main subdirectories:
+<ul>
+<li>classes</li>
+<li>doc</li>
+<li>lib</li>
+</ul>
+<p>
+The classes directory contains the complete Java class hierarchy generated by a build: servlet-related classes and properties, test harnesses and properties, and any other code, such as EJB's and client-side code. In general, it is not a good practice to use this directory tree in a classpath, because of the way that servlet, test, ejb and client classes are jumbled together. Testing against such a jumble will mask configuration issues.</p>
+<p>
+The doc diretory contains generated Javadoc HTML files, plus any other files copied over from the doc directory.</p>
+<p>
+The lib diretory contains deployable jar files for servlets, EJB's, client-side test harnesses, and documentation.</p>
+<p>
+<a href="#top">Back to top</a></p>
+<a name="tmp"><h2>Tmp directory</h2></a>
+This directory contains temporary working files and directories.
+<p>
+<a href="#top">Back to top</a></p>
+</body>
+</html>
+<!--
+$Log: ProjectFiles.html,v $
+Revision 1.1  2002/02/22 19:49:08  rphall
+Initial load
+
+Revision 1.4  2001/12/20 22:40:52  rphall
+Deployment file for jar's
+
+Revision 1.3  2001/12/20 17:37:16  rphall
+Cleaned up log comments
+
+Revision 1.2  2001/12/20 17:34:43  rphall
+First draft
+-->
+

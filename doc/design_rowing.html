@@ -1,0 +1,132 @@
+<html>
+
+<head>
+<title>Rowing Classes</title>
+</head>
+
+<body bgcolor="white">
+
+<hr>
+
+<table border="1" cellpadding="3" cellspacing="0" width="100%">
+
+<tr bgcolor="#CCCCFF">
+<td colspan=2><font size="+2"><b>Rowing Classes</b></font></td>
+</tr>
+
+<tr bgcolor="#CCCCFF">
+<td colspan=2><font size="+2">Classes that implement the business logic of rowing signups</font></td>
+</tr>
+
+<tr><td width="20%"><i>Auxiliary</i></td>
+<td>&nbsp;</td></tr>
+
+<tr><td width="20%"><b>Attendance</b></td>
+<td>Defines valid attendance values for a participant in a rowing session</td></tr>
+
+<tr><td width="20%"><b>BoatView</b></td>
+<td>A read-only snapshot of boat data</td></tr>
+
+<tr><td width="20%"><b>OarsetView</b></td>
+<td>A read-only snapshot of oarset data</td></tr>
+
+<tr><td width="20%"><b>SeatPreference</b></td>
+<td>Defines valid seating preferences for a rowing signup</td></tr>
+
+<tr><td width="20%"><b>Seat</b></td>
+<td>An assignment of participant to a specific position within a boating</td></tr>
+
+<tr><td width="20%"><i>Boating</i></td>
+<td>&nbsp;</td></tr>
+
+<tr><td width="20%"><b>BoatingView</b></td>
+<td>A read-only snapshot of boating data</td></tr>
+
+<tr><td width="20%"><b>BoatingState</b></td>
+<td>Defines valid states of a boating</td></tr>
+
+<tr><td width="20%"><b>IBoating</b></td>
+<td>A read-write interface to boating data, used only by RowingSession beans</td></tr>
+
+<tr><td width="20%"><b>IBoatingHome</b></td>
+<td>A factory that manufactures instances of IBoating, used only by RowingSession beans</td></tr>
+
+<tr><td width="20%"><b>remote/BoatingBean</b></td>
+<td>A remote implementation of IBoating</td></tr>
+
+<tr><td width="20%"><b>remote/BoatingBeanState</b></td>
+<td>A utility used to implement remote/BoatingBean</td></tr>
+
+<tr><td width="20%"><i>Participant</i></td>
+<td>&nbsp;</td></tr>
+
+<tr><td width="20%"><b>ParticipantView</b></td>
+<td>A read-only snapshot of participant data</td></tr>
+
+<tr><td width="20%"><b>ParticipantState</b></td>
+<td>Defines valid states of a participant</td></tr>
+
+<tr><td width="20%"><b>IParticipant</b></td>
+<td>A read-write interface to participant data, used only by RowingSession and Boating beans</td></tr>
+
+<tr><td width="20%"><b>IParticipantHome</b></td>
+<td>A factory that manufactures instances of IParticipant, used only by RowingSession and Boating beans</td></tr>
+
+<tr><td width="20%"><b>remote/ParticipantBean</b></td>
+<td>A remote implementation of IParticipant</td></tr>
+
+<tr><td width="20%"><b>remote/ParticipantBeanState</b></td>
+<td>A utility used to implement remote/ParticipantBean</td></tr>
+
+<tr><td width="20%"><i>Rowing</i></td>
+<td>&nbsp;</td></tr>
+
+<tr><td width="20%"><b>RowingSessionView</b></td>
+<td>A read-only snapshot of a rowing session</td></tr>
+
+<tr><td width="20%"><b>RowingSessionState</b></td>
+<td>Defines valid states of a rowing session</td></tr>
+
+<tr><td width="20%"><b>IRowingSession</b></td>
+<td>A read-write interface to a rowing session</td></tr>
+
+<tr><td width="20%"><b>IRowingSessionHome</b></td>
+<td>A factory that manufactures instances of IRowingSession</td></tr>
+
+<tr><td width="20%"><b>remote/RowingSessionBean</b></td>
+<td>A remote implementation of IRowingSession</td></tr>
+
+<tr><td width="20%"><b>remote/RowingSessionBeanState</b></td>
+<td>A utility used to implement remote/RowingSessionBean</td></tr>
+
+<tr><td width="20%"><i>Exception</i></td>
+<td>&nbsp;</td></tr>
+
+<tr><td width="20%"><b>RowingException</b></td>
+<td>Thrown on a general error related to the rowing package</td></tr>
+
+<tr><td width="20%"><b>BoatingStateException</b></td>
+<td>Thrown when a boating is in an inconsistent state, or when a boating operation is invoked on an inappropriate state</td></tr>
+
+<tr><td width="20%"><b>ParticipantStateException</b></td>
+<td>Thrown when a participant is in an inconsistent state, or when a participant operation is invoked on an inappropriate state</td></tr>
+
+<tr><td width="20%"><b>RowingSessionStateException</b></td>
+<td>Thrown when a rowing session is in an inconsistent state, or when a rowing session operation is invoked on an inappropriate state</td></tr>
+
+<tr><td width="20%"><i>Deprecated</i></td>
+<td>&nbsp;</td></tr>
+
+<tr><td width="20%"><b>SessionSet</b></td>
+<td>deprecated; moved to web package</td></tr>
+
+<tr><td width="20%"><b>SessionView</b></td>
+<td>deprecated; moved to web package</td></tr>
+
+</table>
+
+<hr>
+
+</body>
+</html>
+

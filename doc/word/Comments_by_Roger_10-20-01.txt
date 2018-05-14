@@ -1,0 +1,68 @@
+From: Roger Schonewald [rvschonewald@worldnet.att.net]
+Sent: Sunday, October 21, 2001 11:40 AM
+To: Rick Hall
+Cc: rvschonewald@alum.mit.edu; gbmount@alumni.princeton.edu;
+theebink@gateway.net
+Subject: Re: Overview of functionality for current and Internet CLRA
+signups
+
+Rick,
+Gary has commented on existing system so won't repeat.
+Sign-up sheets are posted more typically a week in advance rather than a
+month.
+Statements are emailed only to those with email addresses otherwise
+statements are sent via US mail.
+
+
+Internet system - 
+1. Sign ups should be restricted to approved members and names supplied
+from approved list. Such a pick list would also avoid spelling problems
+etc.
+2. Once form taken down (locked) not sure needs to be visiable to users.
+Not sure need for coach to add name to form since to final format is the
+boating sheet that the coach makes up and session manager administers.
+
+Good luck on your pursuit of this project.
+Roger
+
+Rick Hall wrote:
+> 
+> Roger -
+> 
+> Gary Mount gave me an overview of the current paper-based system for rowing
+> signups. I've written down my current understanding of the system and
+> attached it below. If you need another format besides Word 2000, let me know
+> and I'll convert it.
+> 
+> If you, Gary and Tom were to review and correct the attached document, I'd
+> greatly appreciate it. This document will serve as the starting point for
+> designing an Internet-based system.
+> 
+> After I get your collective feedback, the next step will be to start writing
+> use cases to specify in detail how the Internet system will work. I'll need
+> your help on this. I can write one example use case, and I can show you some
+> examples of use cases from another project that I worked on, but I need to
+> start teaching other people how to do this. Use cases have been a very
+> important in the success of other web sites that I've worked on.
+> 
+> While I'm waiting for your feedback, and while the use cases are drafted,
+> I'm going to start recruiting some of my dot-com colleagues to work pro-bono
+> on this project. They may not have time or interest, but I think some might
+> have both. (In the worst case, I'll do the coding myself, which isn't so
+> bad.)
+> 
+> I'd suggest that we build the final system using open-source (i.e. free)
+> software and one relatively cheap PC with a tape backup system. While the
+> system is under development, I can host on my home system. Eventually,
+> however, we'll need to find a dedicated computer and Internet connection for
+> the system.
+> 
+> I look forward to hearing from you, Gary and Tom.
+> 
+>  - Rick
+> 
+>   ------------------------------------------------------------------------
+>                                          Name: CurrentAndInternetCLRAOverview.doc
+>    CurrentAndInternetCLRAOverview.doc    Type: Microsoft Word Document (application/msword)
+>                                      Encoding: base64
+

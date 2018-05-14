@@ -1,0 +1,58 @@
+<html>
+<!-- $Id: README.html,v 1.4 2002/03/26 13:37:14 rphall Exp $ -->
+<head>
+<title>CLRA Documentation Guide</title>
+</head>
+<body bgcolor="#ffffffff">
+<p>
+$Revision: 1.4 $<br>
+$Date: 2002/03/26 13:37:14 $</p>
+<h1><a name="top">CLRA documentation guide</a></h1>
+
+<ul>
+<li><strong>What is it?</strong></li>
+<p>
+The CLRA application is a J2EE-based web application for managing the activities of a rowing club: membership rolls, rowing sessions, boatings, attendance, and invoicing. Whereever possible, the CLRA application is built from open-source technologies</p>
+<p>
+The CLRA application is currently distributed as source code under the GNU General Public License.</p>
+
+<li><strong>How to build the application</strong></li>
+<p>
+See the <a href="INSTALL.html">Installation Guide</a>.</p>
+
+<li><strong>Test data</strong></li>
+<p>
+The source code comes with extensive test data; see the <a href="DatabaseSetup">Database Configuration Guide</a>.</p>
+
+
+<li><strong>How to run the application</strong></li>
+<p>
+After installation, running the application simply requires starting JBoss and copying the Enterprise ARchive (EAR) file to the <tt>$JBOSS_DIST/deploy</tt> deployment directory. See the <a href="BuildProcess.html">Build Process</a> documentation.</p>
+
+
+<li><strong>How to test the application</strong></li>
+<p>
+The source code includes a (growing) suite of recursive JUnit tests for automated testing during builds. The test suite can also be invoked from shell script in the <tt>bin</tt> directory.</p>
+
+
+<li><strong>How to debug the application</strong></li>
+
+  <p>The application and unit tests have builtin logging to aid debugging.
+  The logging is implemented using the log4j library;
+  see www.apache.org/log4j for details.</p>
+
+
+<li><strong>Javadoc API</strong></li>
+
+  <p>See <a href="index.html">the generated documentation</a>.</p>
+
+<li><strong>TODO</strong></li>
+
+  <p>See the task list and bug lists on <a href="http://sourceforge.net/projects/clra">SourceForge.net</a>
+
+</ul>
+
+
+</body>
+</html>
+

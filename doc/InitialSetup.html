@@ -1,0 +1,129 @@
+<html>
+<head>
+<title>Initial setup for the CLRA web application</title>
+</head>
+<body bgcolor="#ffffffff">
+<h1><a name="top">Initial setup for the CLRA web application</a></h1>
+<b>Contents</b>
+<ol>
+ <li><a href="#overview">Overview</a></li>
+ <li><a href="#tools">Tools</a></li>
+ <li><a href="#thirdparty">Third-party software</a></li>
+ <li><a href="#download">Download the CLRA source code</a></li>
+ <li><a href="#clrahome">Optional: set up <tt>$CLRA_HOME</tt></a></li>
+ <li><a href="#testbuild">Optional: try a test build</a></li>
+ <li><a href="#nextstep">Next step: database setup</a></li>
+</ol>
+<hr>
+<h1><a name="overview">Overview</a></h1>
+<p>This document describes what tools and third-party software are required to build the CLRA application, as well as how to download the source code for the application.
+<p>PREREQUISITES: none</p>
+<p>
+</p>
+<a href="#top">Back to Top</a>
+<hr>
+<h1><a name="tools">Tools</a></h1>
+<p>
+The CRLA project requires SSH and CVS. These applications come pre-installed with many Linux flavors (e.g. Redhat). Windows users will have to install these applications; see <a href="UsingCVSWindows.html">Using CVS (with Windows)</a>.
+</p>
+<a href="#top">Back to Top</a>
+<hr>
+<h1><a name="thirdparty">Third-party software</a></h1>
+<p>
+The CLRA site is written in Java using open-source software (with one small
+caveat, which is that Oracle is an optional substitute for MySQL as a database.  Oracle is good for development, because it allows one to add foreign-key and other constraints on data relationships. MySQL doesn't have constraints or triggers, but MySQL doesn't require a commercial license for production use.)
+
+Here is what you'll need for development:<ol>
+
+<li>Some OS that supports Java.</li>
+<p>
+Recommended: Linux with the 2.4.2 kernel</br>
+Other: Windows NT 4.0 (SP 6), Windows 2000, or Windows XP<br>
+Not recommended: Windows ME, 98 or 95.</p>
+
+<li>Release 1.3.1 of the Java Development Kit (JDK 1.3.1)</li>
+<p>
+The JDK is available from Sun Microsystems: <a href="http://java.sun.com/j2se/">http://java.sun.com/j2se/</a>.</p>
+
+<li>Release 1.2.1 of the J2EE Development Kit (J2EE 1.2.1)</li>
+<p>
+The J2EE developer's kit is available from Sun Microsystems: <a href="http://java.sun.com/j2ee/download.html">http://java.sun.com/j2ee/download.html</a>.</p>
+
+<li>An SSH client</li>
+<p>
+See the <a href="#tools">Tools</a> section above. SSH is required to check code into and out of SourceForge.  SSH is basically a secure form of Telnet.</p>
+<p>
+SourceForge has a nice intro to SSH:<br>
+<br><a href="http://sourceforge.net/docman/display_doc.php?docid=6841&group_id=1">http://sourceforge.net/docman/display_doc.php?docid=6841&group_id=1</a></p>
+
+<li>A SourceForge developer account.</li>
+<p>
+Accounts are free, but registration is required:<br>
+<br><a href="http://sourceforge.net/account/register.php">http://sourceforge.net/account/register.php</a></p>
+
+<li>MySQL 3.23.46 (or later)<br>
+or alternatively, a developer's copy of Oracle 8.17 (or later)</li>
+
+<p>
+MySQL is easy to install on both Windows and Linux. It is available from <a href="http://www.mysql.com">www.mysql.com</a></p>
+
+<p>
+The developer copy of Oracle is full featured, but can't be used for production.  Oracle is available for download from <a href="http://www.oracle.com">Oracle's site</a>.  Oracle is easy to install on Windows, but version 8.17 is difficult to install on Linux.</p>
+
+<li>The 2.4.4 JBoss Java application server with the embedded Tomcat 4.0.1 servlet engine</li>
+<p>
+JBoss is available from <a href="http://www.jboss.org">www.jboss.org</a>.</p>
+
+<li>The Jakarta Struts framework for Java Server Pages</li>
+<p>
+Struts is available from <a href="http://jakarta.apache.org/struts/">jakarta.apache.org/struts</a>.</p>
+
+<li>The Jakarta Log4j logging framework</li>
+<p>
+Log4j is available from <a href="http://jakarta.apache.org/log4j/docs/index.html</a>jakarta.apache.org/log4j</a>.</p>
+
+<li>The JUnit unit testing framework</li>
+<p>
+JUnit is available from <a href="http://www.junit.org/">www.junit.org</a>.</p>
+</ol>
+
+<a href="#top">Back to Top</a>
+<hr>
+<h1><a name="download">Download the CLRA source code</a></h1>
+<p>
+The CLRA source code is available either as release bundles or as CVS snapshots.</p>
+<p>Release bundles are listed under the "Files" section of the <a href="http://sourceforge.net/projects/clra">CLRA project site</a>.</p>
+<p>
+Directions for obtaining CVS snapshots are available under the "CVS" section. The module that you'll need is called "<b>clra-java</b>".</p>
+<p>
+One trick with CVS: after an initial checkout, use the "cvs update -dP clra-java" command to prune dead directories from the source code tree.</p>
+<p>
+SourceForge has some nice documentation on using CVS with SourceForge. See the "6. CVS - general" and "7. CVS - OS specific" topics on <a href="http://sourceforge.net/docman/?group_id=1">Site Docs</a> section of SourceForge.</p>
+<p>
+However you obtain the CLRA source code, once it is installed on your machine, you should find a directory structure which matches the one described in <a href="ProjectFiles.html">CLRA files and directories</a>.</p>
+<a href="#top">Back to Top</a>
+<hr>
+<h1><a name="clrahome">Optional: set up <tt>$CLRA_HOME</tt></a></h1>
+<p>
+You may find it convenient to set up an environment variable that points to the top of the <tt>clra-java</tt> source code tree. This environment variable is not required by the build scripts, but it is a convenient way to refer to the source code directory in the documentation that follows.</p>
+<p>
+When properly defined, <tt>$CLRA_HOME/bin</tt> points to the script-file directory; <tt>$CLRA_HOME/src</tt> points to the source-code directory; and so on.</p>
+<a href="#top">Back to Top</a>
+<hr>
+<h1><a name="testbuild">Optional: try a test build</a></h1>
+<p>
+A source-code drop contains everything necessary to build, but not deploy, the CLRA application. To check whether your environment is configured properly to this point, you may wish to try a test build. The following command, issued from <tt>$CLRA_HOME</tt>, will clean up any previous build and compile the source code without deploying the CLRA application:
+<pre>
+  ./build.sh clean build.core
+</pre>
+</p>
+<p>
+For more details on building the CLRA application, see the documentation on the <a href="BuildProcess.html">CLRA build process</a>.</p>
+<a href="#top">Back to Top</a>
+<hr>
+<h1><a name="nextstep">Next step: database setup</a></h1>
+<p>
+Now that third-party software and the CLRA source-code is installed on your machine, the next step is to set up a database for the CLRA application. Database configuration is covered in a separate document, <a href="DatabaseSetup.html">Setting up the CLRA database</a>.</p>
+<a href="#top">Back to Top</a>
+</body>
+</html>

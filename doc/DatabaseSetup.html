@@ -1,0 +1,227 @@
+<html>
+<head>
+<title>Setting up the CLRA database</title>
+</head>
+<body bgcolor="#ffffffff">
+<h1><a name="top">Setting up the CLRA database</a></h1>
+<b>Contents</b>
+<ol>
+ <li><a href="#overview">Overview</a></li>
+ <li><a href="#install">Install the database software</a></li>
+ <li><a href="#generate">Generate the database scripts</a></li>
+ <li><a href="#configure">Configure the database</a></li>
+ <li><a href="#testdata">Optional: import test data</a></li>
+ <li><a href="#nextstep">Next step: JBoss setup</a></li>
+</ol>
+<hr>
+<h1><a name="overview">Overview</a></h1>
+<p>This document describes how to set up a database for the CLRA web application.</p>
+<p>PREREQUISITE: <a href="InitialSetup.html">Initial setup for the CLRA web application</a>.</p>
+<p>
+This document assumes that an environment variable <tt>$CLRA_HOME</tt> has been set up which corresponds to the clra/clra-java directory, so that source code resides in <tt>$CLRA_HOME/src</tt>; web pages in <tt>$CLRA_HOME/web</tt>; shell scripts in <tt>$CLRA_HOME/bin</tt>; and so on.</p>
+<p>
+The CLRA web application uses either the Oracle or MySQL database. The Oracle database is useful during development, because it allows one to constrain data more tightly than MySQL. Tight data constraints allow application flaws to be detected more quickly. The MySQL database is used for production because it carries no licensing fees for non-profit organizations.</p>
+<p>
+As configured in CVS, the CLRA web application is parameterized for MySQL operation. This document focuses on MySQL configuration. Going forward, a TODO for the project is to document the Oracle configuration. If you'd like to configure the CLRA web application for Oracle, please send a request for support to the <a href="http://sourceforge.net/projects/clra">project web site</a> on SourceForge.
+<p>
+The basic steps for MySQL configuration are 1) installation of the database software; 2) generation of the MySQL database scripts; 3) configuration of the MySQL database, users, and tables; and 4) optional importation of test data.
+</p>
+<a href="#top">Back to Top</a>
+<hr>
+<h1><a name="install">Install the database software</a></h1>
+<p>Download MySQL from <a href="http://www.mysql.com">www.mysql.com</a>.</p>
+<p>The CLRA web application has been tested under version 3.23.46a with the standard ISAM tables (there's no need to download the 'max' version with transactional support).</p>
+<p>Install per directions on the MySQL website. For convenience, create a system
+environment variable called MYSQL_HOME to point to the installation directory. The $MYSQL_HOME/bin directory does <i>not</i> need to be part of one's PATH variable.
+</p>
+<a href="#top">Back to Top</a>
+<hr>
+<h1><a name="generate">Generate the database scripts</a></h1>
+<p>As mentioned above, the CLRA web application is developed against an Oracle database. Whereever possible, configuration scripts are written in Oracle-compatible SQL. Oracle configuration scripts are physically located in the etc/sql-oracle directory.
+<p>Most MySQL configuration scripts are generated from corresponding Oracle scripts by applying an AWK translation program. The shell script <tt>$CLRA_HOME/bin/oracle-to-mysql.sh</tt> applies the AWK program to scripts in the <tt>$CLRA_HOME/etc/sql-oracle</tt> directory and stores the translated scripts in <tt>$CLRA_HOME/etc/sql-mysql</tt> directory.</p>
+<p>(Because of differences between Oracle and MySQL syntax, five MySQL configuration scripts must maintained separately. Two of these five, test_rowingsession.sql and test_participantsignup.sql, are actually generated from Java programs, src/test/clra/rowing/CreateRowingSessions.java and src/test/clra/rowing/CreateParticipants.java, respectively, and then archived in CVS. The CreateRowingSessions.java and CreateParticipants.java programs must be run yearly, since test data for rowing sessions and participants is time dependent.)
+</p>
+<p>To run the Oracle-to-MySQL translation program, change to the script directory and invoke the <tt>oracle-to-mysql.sh</tt> shell script:
+<pre>
+
+  $ cd $CLRA_HOME/bin
+  $ ./oracle-to-mysql.sh
+
+  Wed Feb 20 10:32:46 EST 2002
+  Converting Oracle scripts to mySQL...
+  ...Conversion complete
+  Wed Feb 20 10:32:46 EST 2002
+
+</pre>
+</p>
+<a href="#top">Back to Top</a>
+<hr>
+<h1><a name="configure">Configure the database</a></h1>
+<p>
+Run the command-line tool $MYSQL_HOME/bin as root and set the password of
+the root administrator:
+<pre>
+
+  $ $MYSQL_HOME/bin/mysql
+
+  Welcome to the MySQL monitor.  Commands end with ; or \g.
+  Your MySQL connection id is 2 to server version: 3.23.46-nt
+  Type 'help;' or '\h' for help. Type '\c' to clear the buffer.
+
+  mysql> SET PASSWORD FOR root@"%" = PASSWORD('your_choice');
+  Query OK, 0 rows affected (0.11 sec)
+
+  mysql> SET PASSWORD FOR root@"localhost" = PASSWORD('your_choice');
+  Query OK, 0 rows affected (0.11 sec)
+
+</pre>
+</p>
+<p>
+Create the "clra" database and exit mySQL:
+<pre>
+
+  mysql> create database clra;
+  Query OK, 1 row affected (0.15 sec)
+
+  mysql> exit
+
+</pre>
+</p>
+Use the script <code>$CLRA_HOME/etc/sql-mysql/clra_ddl.sql</code> to create the clra tables.
+<pre>
+
+  $ $MYSQL_HOME/bin/mysql -u root -p clra < $CLRA_HOME/etc/sql-mysql/clra_ddl.sql
+  Enter password: ****
+
+</pre>
+</p>
+<p>
+Create a user "muze" with the password "muz3" and the SELECT, INSERT,
+UPDATE and DELETE privileges on the clra database. (NOTE: make sure any
+production database defines different users and passwords.):
+<pre>
+
+  $ $MYSQL_HOME/bin/mysql
+
+  Welcome to the MySQL monitor.  Commands end with ; or \g.
+  Your MySQL connection id is 2 to server version: 3.23.46-nt
+  Type 'help;' or '\h' for help. Type '\c' to clear the buffer.
+
+
+  mysql> GRANT SELECT, INSERT, UPDATE, DELETE
+      -> ON clra.*
+      -> TO muze@'%'
+      -> IDENTIFIED BY 'muz3';
+  Query OK, 0 rows affected (0.15 sec)
+
+  mysql> GRANT SELECT, INSERT, UPDATE, DELETE
+      -> ON clra.*
+      -> TO muze@'localhost'
+      -> IDENTIFIED BY 'muz3';
+  Query OK, 0 rows affected (0.15 sec)
+
+  mysql> use mysql
+  Database changed
+
+  mysql> select host, user, password from user;
+  +-----------+--------+------------------+
+  | host      | user   | password         |
+  +-----------+--------+------------------+
+  | localhost | root   | 123456789abcdef1 |
+  | %         | muze   | 402d60942272b768 |
+  | localhost | muze   | 402d60942272b768 |
+  +-----------+--------+------------------+
+  3 rows in set (0.00 sec)
+
+  mysql> exit
+  Bye
+
+  $ $MYSQL_HOME/bin/mysql -u muze -pmuz3 clra
+  Welcome to the MySQL monitor.  Commands end with ; or \g.
+  Your MySQL connection id is 12 to server version: 3.23.46-nt
+
+  Type 'help;' or '\h' for help. Type '\c' to clear the buffer.
+
+  mysql> show tables;
+  +----------------+
+  | Tables_in_clra |
+  +----------------+
+  | Boat           |
+  | Boating        |
+  | ClraSequence   |
+  | Member         |
+  | MemberRole     |
+  | Oarset         |
+  | Participant    |
+  | RowingSession  |
+  | Seat           |
+  | SessionCoach   |
+  +----------------+
+  10 rows in set (0.00 sec)
+
+  mysql> exit
+  Bye
+
+</pre>
+</p>
+<a href="#top">Back to Top</a>
+<hr>
+<h1><a name="testdata">Optional:import test data</a></h1>
+<p>
+This step should be skipped for a production database. For development and testing purposes, import some data into the clra tables using the <tt>$CLRA_HOME/bin/sql_setup-mysql.sh</tt> script. This script runs under the MySQL root account.
+<pre>
+
+  $ cd $CLRA_HOME/bin
+  $ ./sql_setup-mysql.sh
+
+  Wed Feb 20 11:26:40 EST 2002
+  Generating mySQL scripts from Oracle scripts ...
+
+  Wed Feb 20 11:26:40 EST 2002
+  Removing derived mySQL scripts ...
+  ...Cleanup complete
+  Wed Feb 20 11:26:40 EST 2002
+
+  Wed Feb 20 11:26:40 EST 2002
+  Converting Oracle scripts to mySQL...
+  awk: oracle-to-mysql.awk:28: fatal: cannot open file `../etc/sql-oracle/test_security.sql' for reading (No such file or directory)
+  ...Conversion complete
+  Wed Feb 20 11:26:40 EST 2002
+
+  Executing setup.sql ...
+  Enter password: ****
+
+  Member
+  309
+  MemberRole
+  318
+  SessionCoach
+  0
+  RowingSession
+  465
+  Boat
+  11
+  Oarset
+  5
+  Boating
+  0
+  Seat
+  0
+  Participant
+  11806
+
+  setup.sql complete
+  Wed Feb 20 11:26:51 EST 2002
+
+</pre>
+The script completely reinitializes the CLRA database and the MySQL scripts, then recreates CLRA tables and imports test data. The script finishes by printing out the number of rows in each CLRA table. The values shown are representative for the current version of the source code (as of Feb. 20, 2002). In particular, the Participant, RowingSession, Member, and MemberRole tables should have non-zero row counts if test data has been successfully imported.
+</p>
+<a href="#top">Back to Top</a>
+<hr>
+<h1><a name="nextstep">Next step: JBoss setup</a></h1>
+<p>
+Now that the CLRA software has been unpacked and the database has been configured, the next step is to configure the JBoss Java application server to run the CLRA web application. JBoss configuration is covered in a separate document, <a href="JBossSetup.html">JBoss Setup</a>.</p>
+<br>
+<a href="#top">Back to Top</a>
+</body>
+</html>

@@ -1,0 +1,262 @@
+<html>
+<!-- $Id: UsingCVSWindows.html,v 1.1 2002/02/22 19:49:08 rphall Exp $ -->
+<head>
+<!-- link rel=File-List href="./UsingCVS_files/filelist.xml" -->
+<title>Using CVS (with Windows)</title>
+</head>
+<body bgcolor="#ffffffff">
+<h1><a name="top">Using CVS (with Windows)</a></h1>
+<p>
+$Revision: 1.1 $<br>
+$Date: 2002/02/22 19:49:08 $</p>
+<p>
+Prepared by Ted Skolnick, 11/13/2001<br>
+Adapted for the CLRA project by Rick Hall, 2/22/2002</p>
+<b>Contents</b>
+<ol>
+ <li><a href="#overview">Overview</a></li>
+ <li><a href="#concepts">CVS concepts</a></li>
+ <li><a href="#setup">Setup</a></li>
+</ol>
+<hr>
+
+<a name="overview"><h1>Overview</h1></a>
+<p>
+<i>(Note on the adaptation: this document was originally written by Ted Skolnick for another project, one on which developers were less familiar with version control. This adaptation has removed the more introductory sections, and has kept the sections that describe how to use CVS in a Windows environment. All the good stuff is Ted's.)</i></p>
+
+<p>Almost every good software practice is a time saving
+measure. Version control is no exception; it saves time by preventing mishaps, and by allowing for rapid recovery when there are problems.</p>
+
+<p>
+Version control helps to:</p>
+
+<p style='margin-left:.5in;text-indent:-.25in;
+tab-stops:list .5in'>
+<b>Versions</b>: Store checkpoints of files during development
+(i.e. save your work). Checkpoints
+provide a safety net for rolling back to a previous version when needed.
+Inspecting and comparing versions throughout
+a file's history can help determine when a bug was introduced.</p>
+
+<p style='margin-left:.5in;text-indent:-.25in;
+tab-stops:list .5in'>
+<b>Prevent Overwrites</b>: When we have multiple developers on a project it is important to make
+sure we don't overwrite each other's files.  CVS was designed to solve this problem.</p>
+
+<p style='margin-left:.5in;text-indent:-.25in;
+tab-stops:list .5in'>
+<b>Accountability and tracking</b>:
+If each developer is checking in their own
+work, they can see which changes were theirs, and which ones were by another
+team member.<b></b></p>
+
+<p>When using CVS there are a few guidelines to follow:</p>
+
+
+
+<p style='margin-left:.5in;text-indent:-.25in;
+tab-stops:list .5in'>
+<b>Comments</b>: When
+you check in a file, comment the changes you made.</p>
+
+<p style='margin-left:.5in;text-indent:-.25in;
+tab-stops:list .5in'>
+<b>Check in frequently</b>:
+In order to minimize situations where multiple people are working on the
+same file (i.e. avoid file merges), try to check in any file you have checked
+out, by the end of the day. There will
+be some exceptions here, but in general this is good practice, partly because
+it ensures that you save your work.</p>
+
+<p style='margin-left:.5in;text-indent:-.25in;
+tab-stops:list .5in'>
+<b>Don't check in broken stuff</b>:
+Code does not need to be in perfect working order to check it in,
+but it can't be in a state that would prevent other developers from running
+their code if they fetched your file. For java development, the rule should be that
+all code must compile before you check it in.</p>
+
+<p style='margin-left:.5in;text-indent:-.25in;
+tab-stops:list .5in'>
+<b>Diffs</b>: Use the diff comparison tool to make sure that
+the changes you are checking in are correct and what you expect.
+Always do a diff before signing a file in.</p>
+
+
+
+<a name="concepts"><h1>CVS concepts</h1></a>
+
+<p>I will just provide a few general words here.
+A nice concise overview of using winCVS can be found at:</p>
+
+<p><a href="http://www.computas.com/pub/wincvs-howto/">http://www.computas.com/pub/wincvs-howto/</a></p>
+
+<p>Many systems prevent clobbering by locking files.
+When a user wants to edit a file, they lock
+it, so nobody can edit it until they are done, at which point they release the
+lock. CVS however, does not, by
+default, use file locking. Instead it
+compares your local file to the file in the archive and warns you if somebody
+else has made changes since you last fetched the file.
+You will not be able to check in your file
+until you resolve the differences. I am
+personally much more familiar with locking mechanisms, but both techniques seem
+to solve the problem, and WinCVS has worked just fine in my local tests.</p>
+
+
+
+<p>CVS uses a simple client server architecture.
+When you run the winCVS client, it will
+connect to the winCVS server running on SourceForge.
+This connection is made via SSH.
+As a result, you will need to install SSH on your machine.
+Setup is discussed below.</p>
+
+<a name="setup"><h1>Setup</h1></a>
+
+<p>There are two pieces of software you will need to
+install. The first in winCVS and the
+second is SSH. WincCVS is a GUI front
+end for CVS. SSH is used to communicate
+to the CVS server on SourceForge.</p>
+
+
+
+<h3>Install winCVS</h3>
+
+<p>WinCvs is available from <a href="http://www.wincvs.org">the WinCVS website</a>.</p>
+
+<p>Download <b>wincvs136.zip</b> or a later version.</p>
+
+
+<h3>Install SSH</h3>
+
+<p>(Credit: much of the following was taken from <a
+href="http://www.wincvs.org/ssh.html">http://www.wincvs.org/ssh.html</a>)</p>
+
+<ol>
+<li>Get SSH from <a href="ftp://ftp.ssh.com/pub/ssh/">ftp://ftp.ssh.com/pub/ssh/.</a></li>
+
+<p>Make a few environment changes.<br>
+          SSH needs two
+environment variables to work properly: <b>HOME</b> and <b>PATH</b> <br>
+          The first (HOME) will set an environment variable for ssh to find your encrypted identity key. The second (PATH) needs to be updated to include
+ssh.  </p>
+
+<p>          For Windows 2000, open Start-&gt;Control Panel-&gt;System-&gt;Environment  </p>
+
+<p>
+Add a variable HOME with the value C:\SSH.  <br>
+Next, find the PATH variable. Add to it your SSH installation directory, e.g. C:\SSH  <br>
+(directories are separated by ';' ).  </p>
+
+<li>Test the SSH installation</li>
+<p>
+Start an MS-DOS shell, and try to connect using ssh.  <br>
+&quot;username&quot; must be a valid UN*X shell account on
+&quot;clra.sourceforge.net&quot;
+<pre>
+   ssh -l username cvs-server-host
+</pre>
+
+<p>You should be prompted for the username's password for clra.sourceforge.net.  <br>
+If not, your setup is wrong. Go back. Fix it.  </p>
+
+<li><b>IMPORTANT:</b> Try to log into <b>cvs.clra.sourceforge.net</b></li>
+<p>
+Note the "cvs." that is prepended to "clra.sourceforge.net". By trying to log into this account, you'll trigger the UNIX host to create an account for you on the CVS server. You won't be able to directly use this account (for example, you won't be able to SSH to it), but CVS needs this account for housekeeping purposes. If this account is not set up, you'll receive cryptic error messages about ".Xauthority" when you try to use CVS.</p>
+<p>
+If the login succeeds, you will be logged out immediately and automatically.</p>
+
+<li>Setup CVS for password-less usage</li>
+<p>
+If you want to enter a password every time you do any CVS action, skip this step. Trust me, you don't want to skip it.</p>
+<p>
+Make a directory called &quot;.ssh&quot; (DOTssh that is) in the directory you specified as HOME. Enter an MS-DOS prompt and type the following:
+<pre>
+   mkdir C:\SSH\.SSH
+   cd C:\SSH <br>
+   ssh-keygen -C &lt;comment&gt; -f ./.ssh/identity </p>
+</pre></p>
+
+<p>
+&lt;comment&gt; is an identifier placed in the public key (use your email
+address).<brl>
+Press enter when it asks you for a passphrase. You don't want a passphrase.</p>
+
+<p>
+Now you need to set up the server to accept your keys. SourceForge has a web-based interface for doing this. Log into your SourceForge account. Click on "Account Maintenance" in the left-hand margin. Choose "Account preferences" from the maintenance menu. Scroll down to the "Shell account information". Click on "Edit Keys". You'll be presented with a form that will upload your "identity.pub" key to SourceForge.</p>
+
+<p>Go back and try the previous step again; now it should log you in with no password. If it asks for a password, try adding '-v' before the '-l' and read the logs it prints.</p>
+
+<p>
+NOTE: Without the -C option the program will fail and you won't get a new key pair.</p>
+
+<li>Configure WinCVS to use SSH</li>
+<p>
+See <b>WinCVS</b> settings section below.</p>
+
+<li>Test WinCVS setup.</li>
+<p>
+Use the change location button on the tool bar to navigate to your local working directory. Once there, chose, check out module, and pick a module you know from the CLRA archives (e.g. clra/clra-java/doc ).</p>
+</ol>
+
+<h3>WinCVS settings</h3>
+
+<p>There are a number of settings in winCVS that will make the
+system much friendlier to use. </p>
+
+<ul type=disc>
+ <li>For
+     starters, you will need to set up your connection via the menu
+     Admin&gt;Preferences. Below are
+     my settings. Please note that you
+     may enter the name for the SourceForge box, I happened to put in it's IP
+     address because I didn't know the name at the time.</li>
+</ul>
+
+<p>
+<img border=0 width=452 height=326 src="./UsingCVS_files/image002.jpg"></p>
+<p>
+For the CLRA project:<ul>
+ <li><b>Path:</b> /cvsroot/clra</li>
+ <li><b>Host address:</b> cvs.clra.sourceforge.net</li>
+ <li><b>CVSROOT:</b> &lt;<i>username</i>&gt;@cvs.clra.sourceforge.net:/cvsroot/clra</li>
+</ul>
+</p>
+
+<p>If you then press the <b>Settings</b>button, you will see
+the following dialog where you type in the location of your public key and the
+SSH program.</p>
+
+<p>
+<img border=0 width=320 height=340 src="./UsingCVS_files/image004.jpg"></p>
+
+<ul type=disc>
+ <li>In that same dialog you can setup an external diff utility for viewing differences between files. I use one that came with ultraedit ( a nice programmer's text editor ) called uediff.exe.</li>
+</ul>
+
+<p>
+<img border=0 width=452 height=326 src="./UsingCVS_files/image006.jpg"></p>
+
+<ul type=disc>
+ <li>Please choose a default viewer that you like. Mine is UltraEdit even though it says Notepad above. UltraEdit actually replaces notepad so it pops up as the default editor for everything (e.g. view source in IE).</li>
+</ul>
+
+<ul type=disc>
+ <li>Once again in that same dialog, change the global settings to make sure files are writeable when you check them out.</li>
+</ul>
+
+<p>
+<img border=0 width=452 height=326
+src="./UsingCVS_files/image008.jpg">
+</p>
+
+<ul type=disc>
+ <li>In the <b>View&gt;File</b> filter menu choice, only check off <b>Show Ignore,</b> leave all others unchecked.</li>
+ <li><strong>IMPORTANT</strong>: Make sure the "Checkout text files with the Unix LF" option is <strong>selected</strong>.
+</ul>
+
+</body>
+
+</html>

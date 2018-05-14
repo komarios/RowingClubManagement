@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XML Spy v3.0 NT (http://www.xmlspy.com) by Richard Hall (Rick Hall) -->
+<!ELEMENT boat-list (boat)>
+<!ELEMENT boat (boat-name, boat-size, boat-type)>
+<!ELEMENT boat-name (#PCDATA)>
+<!ELEMENT boat-size (#PCDATA)>
+<!ELEMENT boat-type (#PCDATA)>

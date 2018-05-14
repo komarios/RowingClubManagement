@@ -1,0 +1,9 @@
+POST /@xml-member-hostPath@/Member HTTP/1.0
+Content-Type: text/xml; charset=utf-8
+Accept: application/soap+xml, application/dime, multipart/related, text/*
+User-Agent: Axis/1.0
+Host: @xml-member-hostAddrPort@
+Cache-Control: no-cache
+Pragma: no-cache
+SOAPAction: ""
+Content-Length: 382

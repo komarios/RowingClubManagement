@@ -1,0 +1,23 @@
+/clra-to-fake-member-data.sql/1.1/Wed Jan 30 16:28:40 2002//
+/clra_ddl.sql/1.10/Thu Mar 13 00:25:21 2003//
+/member_sequence.sql/1.1/Wed Jan 30 16:28:40 2002//
+/sequence_boat.sql/1.1/Wed Jan 30 16:28:40 2002//
+/sequence_member.sql/1.1/Wed Jan 30 16:28:40 2002//
+/sequence_oarset.sql/1.1/Wed Jan 30 16:28:40 2002//
+/sequence_participant.sql/1.1/Wed Jan 30 16:28:40 2002//
+/sequence_rowing.sql/1.1/Wed Jan 30 16:28:40 2002//
+/sequence_seat.sql/1.1/Wed Jan 30 16:28:40 2002//
+/setup.sql/1.1/Wed Jan 30 16:28:40 2002//
+/summary.sql/1.1/Wed Jan 30 16:28:40 2002//
+/test_boat.sql/1.1/Wed Jan 30 16:28:40 2002//
+/test_member.sql/1.3/Wed Feb 20 16:04:50 2002//
+/test_memberrole.sql/1.2/Sat Feb 16 01:36:04 2002//
+/test_oarset.sql/1.1/Wed Jan 30 16:28:40 2002//
+/test_participantsignup.sql/1.1/Wed Jan 30 16:28:40 2002//
+/test_rowingsession.sql/1.2/Sun Mar 17 05:55:53 2002//
+/view_boat.sql/1.1/Wed Jan 30 16:28:40 2002//
+/view_member.sql/1.1/Wed Jan 30 16:28:40 2002//
+/view_oarset.sql/1.1/Wed Jan 30 16:28:40 2002//
+/view_rowingsession.sql/1.1/Wed Jan 30 16:28:40 2002//
+/view_testaccounts.sql/1.1/Wed Jan 30 16:28:40 2002//
+D

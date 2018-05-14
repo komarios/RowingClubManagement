@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Project XSL_XMLUseFile=".\member.xsl" XSL_XSLUseSet="Yes" XSL_XSLUseFile=".\member2.xml">
+	<Folder FolderName="XML Files" ExtStr="xml;cml;math;mtx;rdf;smil;svg;wml">
+		<File FilePath=".\boat.xml" HomeFolder="Yes"/>
+		<File FilePath=".\member.xml" HomeFolder="Yes"/>
+		<File FilePath=".\member2.xml" HomeFolder="Yes"/>
+		<File FilePath=".\oarset.xml" HomeFolder="Yes"/>
+	</Folder>
+	<Folder FolderName="XSL Files" ExtStr="xsl;xslt">
+		<File FilePath=".\boat.xsl" HomeFolder="Yes"/>
+		<File FilePath=".\member.xsl" HomeFolder="Yes"/>
+		<File FilePath=".\oarset.xsl" HomeFolder="Yes"/>
+	</Folder>
+	<Folder FolderName="HTML Files" ExtStr="html;htm;xhtml;asp"/>
+	<Folder FolderName="DTD/Schemas" ExtStr="dtd;dcd;xdr;biz;xsd">
+		<File FilePath=".\boat.dtd" HomeFolder="Yes"/>
+		<File FilePath=".\member.dtd" HomeFolder="Yes"/>
+		<File FilePath=".\oarset.dtd" HomeFolder="Yes"/>
+	</Folder>
+	<Folder FolderName="Entities" ExtStr="ent"/>
+</Project>

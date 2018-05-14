@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XML Spy v3.0 NT (http://www.xmlspy.com) by Richard Hall (Rick Hall) -->
+<!ELEMENT member-list (member)>
+<!ELEMENT member (member-name, email, telephone, address, clra-date)>
+<!ELEMENT telephone (telephone-evening, telephone-day, telephone-other)>
+<!ELEMENT address (street1, street2, city, state, zip)>
+<!ELEMENT member-name (#PCDATA)>
+<!ELEMENT email (#PCDATA)>
+<!ELEMENT telephone-evening (#PCDATA)>
+<!ELEMENT telephone-day (#PCDATA)>
+<!ELEMENT telephone-other (#PCDATA)>
+<!ELEMENT street1 (#PCDATA)>
+<!ELEMENT street2 (#PCDATA)>
+<!ELEMENT city (#PCDATA)>
+<!ELEMENT state (#PCDATA)>
+<!ELEMENT zip (#PCDATA)>
+<!ELEMENT clra-date (#PCDATA)>

@@ -1,0 +1,95 @@
+From: Gary Mount [gbmount@alumni.princeton.edu]
+Sent: Saturday, October 20, 2001 7:08 AM
+To: Rick Hall; rvschonewald@alum.mit.edu
+Cc: theebink@gateway.net
+Subject: Re: Overview of functionality for current and Internet CLRA
+signups
+
+Some comments--rowers should not put their name in a slot where someone hasd
+crossed off their name--rather, they should add their name to the bottom of
+the list.  Also the coach does not over book the session--he simply works
+with who has signed up and fills as many boats as he can.  Rowers are not
+called if there is no seat--they sometimes get a seat because of a no show
+and sometimes have to go home.
+
+Coaches do not pick eights first because of cox ratio.  coxes come from the
+rowers at large and thus are available anytime the coach tells them to cox.
+rather, eights get more rowers on the water per coach.  A coach can be more
+effective with two eights than with one eight and two fours, for example.
+
+The coach does not contact the rowers that they will not be needed.  Rather,
+if it looks like a major overbooking, he calls the captain who decides how
+many to call.  this happens only once or twice a year.
+
+The session manager takes attendance, not the coach.  the session manager
+notes no-shows, bumped and coxes--then gives the sheet to the treasurer.
+
+if a rower gets too many no shows, the captain deals with it.  two weeks off
+is not a standard--it is just something I did in two cases over the past
+four years.
+
+to be successful, the internet based system must replace the paper--doing
+both would not be a help to those doing the work.
+
+the coach would not need to add any names to the sign up list--the list
+would be it.
+
+I think putting the boatings on the net would be a bad idea.
+
+Gary Mount
+Terhune Orchards
+330 Cold Soil Road
+Princeton, NJ 08540
+609-924-2310
+fax  924-8569
+----- Original Message -----
+From: "Rick Hall" <rphall@pluto.njcc.com>
+To: <rvschonewald@alum.mit.edu>
+Cc: <gbmount@alumni.princeton.edu>; <theebink@gateway.net>
+Sent: Friday, October 19, 2001 11:37 AM
+Subject: Overview of functionality for current and Internet CLRA signups
+
+
+> Roger -
+>
+> Gary Mount gave me an overview of the current paper-based system for
+rowing
+> signups. I've written down my current understanding of the system and
+> attached it below. If you need another format besides Word 2000, let me
+know
+> and I'll convert it.
+>
+> If you, Gary and Tom were to review and correct the attached document, I'd
+> greatly appreciate it. This document will serve as the starting point for
+> designing an Internet-based system.
+>
+> After I get your collective feedback, the next step will be to start
+writing
+> use cases to specify in detail how the Internet system will work. I'll
+need
+> your help on this. I can write one example use case, and I can show you
+some
+> examples of use cases from another project that I worked on, but I need to
+> start teaching other people how to do this. Use cases have been a very
+> important in the success of other web sites that I've worked on.
+>
+> While I'm waiting for your feedback, and while the use cases are drafted,
+> I'm going to start recruiting some of my dot-com colleagues to work
+pro-bono
+> on this project. They may not have time or interest, but I think some
+might
+> have both. (In the worst case, I'll do the coding myself, which isn't so
+> bad.)
+>
+> I'd suggest that we build the final system using open-source (i.e. free)
+> software and one relatively cheap PC with a tape backup system. While the
+> system is under development, I can host on my home system. Eventually,
+> however, we'll need to find a dedicated computer and Internet connection
+for
+> the system.
+>
+> I look forward to hearing from you, Gary and Tom.
+>
+>  - Rick
+>
+

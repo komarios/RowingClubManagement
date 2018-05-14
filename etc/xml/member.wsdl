@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions targetNamespace="urn:@xml-member-targetNamespace@" xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:apachesoap="http://xml.apache.org/xml-soap" xmlns:impl="urn:@xml-member-implNamespace@" xmlns:intf="urn:@xml-member-intfNamespace@" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:tns1="http://beans.xml.clra.com" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:wsdlsoap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+ <wsdl:types>
+  <schema targetNamespace="http://beans.xml.clra.com" xmlns="http://www.w3.org/2001/XMLSchema">
+   <import namespace="http://schemas.xmlsoap.org/soap/encoding/"/>
+   <complexType name="MemberBean">
+    <sequence>
+     <element name="id" nillable="true" type="xsd:int"/>
+     <element name="accountName" nillable="true" type="xsd:string"/>
+     <element name="accountType" nillable="true" type="xsd:string"/>
+     <element name="accountDate" nillable="true" type="xsd:dateTime"/>
+     <element name="memberNameBean" nillable="true" type="tns1:MemberNameBean"/>
+     <element name="addressBean" nillable="true" type="tns1:AddressBean"/>
+     <element name="eveningTelephone" nillable="true" type="xsd:string"/>
+     <element name="dayTelephone" nillable="true" type="xsd:string"/>
+     <element name="otherTelephone" nillable="true" type="xsd:string"/>
+     <element name="email" nillable="true" type="xsd:string"/>
+     <element name="memberRoleBeans" nillable="true" type="impl:ArrayOf_tns1_MemberRoleBean"/>
+     <element name="birthDate" nillable="true" type="xsd:dateTime"/>
+    </sequence>
+   </complexType>
+   <complexType name="MemberRoleBean">
+    <sequence>
+     <element name="roleGroup" nillable="true" type="xsd:string"/>
+     <element name="role" nillable="true" type="xsd:string"/>
+    </sequence>
+   </complexType>
+   <complexType name="MemberNameBean">
+    <sequence>
+     <element name="middleName" nillable="true" type="xsd:string"/>
+     <element name="lastName" nillable="true" type="xsd:string"/>
+     <element name="firstName" nillable="true" type="xsd:string"/>
+     <element name="suffix" nillable="true" type="xsd:string"/>
+    </sequence>
+   </complexType>
+   <complexType name="AddressBean">
+    <sequence>
+     <element name="zip" nillable="true" type="xsd:string"/>
+     <element name="state" nillable="true" type="xsd:string"/>
+     <element name="street2" nillable="true" type="xsd:string"/>
+     <element name="street1" nillable="true" type="xsd:string"/>
+     <element name="city" nillable="true" type="xsd:string"/>
+    </sequence>
+   </complexType>
+  </schema>
+  <schema targetNamespace="urn:@xml-member-targetNamespace@" xmlns="http://www.w3.org/2001/XMLSchema">
+   <import namespace="http://schemas.xmlsoap.org/soap/encoding/"/>
+   <complexType name="ArrayOf_tns1_MemberRoleBean">
+    <complexContent>
+     <restriction base="soapenc:Array">
+      <attribute ref="soapenc:arrayType" wsdl:arrayType="tns1:MemberRoleBean[]"/>
+     </restriction>
+    </complexContent>
+   </complexType>
+   <complexType name="ArrayOf_tns1_MemberBean">
+    <complexContent>
+     <restriction base="soapenc:Array">
+      <attribute ref="soapenc:arrayType" wsdl:arrayType="tns1:MemberBean[]"/>
+     </restriction>
+    </complexContent>
+   </complexType>
+   <element name="ArrayOf_tns1_MemberBean" nillable="true" type="impl:ArrayOf_tns1_MemberBean"/>
+  </schema>
+ </wsdl:types>
+
+   <wsdl:message name="findAllMembersResponse">
+
+      <wsdl:part name="findAllMembersReturn" type="impl:ArrayOf_tns1_MemberBean"/>
+
+   </wsdl:message>
+
+   <wsdl:message name="findAllMembersRequest">
+
+   </wsdl:message>
+
+   <wsdl:portType name="IMemberXmlRpc">
+
+      <wsdl:operation name="findAllMembers">
+
+         <wsdl:input message="impl:findAllMembersRequest" name="findAllMembersRequest"/>
+
+         <wsdl:output message="impl:findAllMembersResponse" name="findAllMembersResponse"/>
+
+      </wsdl:operation>
+
+   </wsdl:portType>
+
+   <wsdl:binding name="MemberSoapBinding" type="impl:IMemberXmlRpc">
+
+      <wsdlsoap:binding style="rpc" transport="http://schemas.xmlsoap.org/soap/http"/>
+
+      <wsdl:operation name="findAllMembers">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="findAllMembersRequest">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:@xml-member-implNamespace@" use="encoded"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="findAllMembersResponse">
+
+            <wsdlsoap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="urn:@xml-member-implNamespace@" use="encoded"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+   </wsdl:binding>
+
+   <wsdl:service name="IMemberXmlRpcService">
+
+      <wsdl:port binding="impl:MemberSoapBinding" name="Member">
+
+         <wsdlsoap:address location="@xml-member-hostURL@/@xml-member-hostPath@/Member"/>
+
+      </wsdl:port>
+
+   </wsdl:service>
+
+</wsdl:definitions>

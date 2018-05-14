@@ -1,0 +1,122 @@
+<html>
+<head>
+<title>Design: Struts for RowingSession Management</title>
+</head>
+<body>
+<h1>Overview</h1>
+<p>The RowingSessionManagement module allows an administrator (for example, the captain of the club) to schedule rowing practices and regattas.</p>
+
+<p>Rowing sessions are promoted through a sequence of steps.</p>
+<ol>
+  <li>A rowing session is created. During this step, the date, time, level and type of practice is chosen. The session is marked "tenative". A tenative session can be deleted, and the date, time, level and type may be edited.</li><p></p>
+  <li>The session is published. The session becomes visible to club members, who may sign up for the session. The session is marked "open". An open session can no longer be deleted, but it may be cancelled.</li><p></p>
+  <li>The session is locked. The session remains visible to club members, but they can no longer sign up for the session. Locking does not apply to coaches. Coaches are permitted to change enrollment of a locked session. Once a session is locked, boatings can be created for the members who have signed up.</li><p></p>
+  <li>Boatings are published. The session is marked "scheduled".</li><p></p>
+  <li>The rowing session takes place. Attendance is taken and boatings are adjusted. Once attendance and final boatings are recorded, the rowing session is marked "complete". A completed session can no longer be cancelled.</li><p></p>
+  <li>Members are invoiced for their participation in the rowng session. After invoicing is completed, the rowing session is marked "closed".</li><p></p>
+</ol>
+</p>
+<p>The RowingSessionManagement module is concerned with the first two steps. The module allows a rowing adminstrator to create, edit and publish a rowing session. The administrator may delete the session (if it hasn't been published) or cancel it (if it has been published but not yet completed). After the session is published, other members become responsible for the session. Other modules are used to schedule boatings, take attendance, invoice members and promote the session towards closure.</p>
+
+<h2>Model-view-controller design</h2>
+<h2>Dynamic interactions</h2>
+
+<h1>Components</h1>
+<h2>Model (business logic) components:</h2>
+<ul>
+<li><strong>com.clra.rowing.IRowingSession</strong><br>
+<br>
+A entity EJB that represents a rowing session.</li>
+<p></p>
+<li><strong>com.clra.rowing.IRowingSessonHome</strong><br>
+<br>
+A factory and finder for rowing sessions.</li>
+<p></p>
+<li><strong>com.clra.rowing.RowingUtils</strong><br>
+<br>
+A collection of static utilities, so that classes outside of the com.clra.rowing package don't have to know the details of creating and finding rowing session EJB's.</li>
+<p></p>
+<li>com.clra.rowing.RowingSessionSnapshot. A read-only, static set of data from a rowing session, valid at the time the snapshot was created, but not updated as the rowing session is modified.</li>
+<p></p>
+</ul>
+<p></p>
+
+<h2>View (JSP) components:</h2>
+<ul>
+<li><strong>com.clra.web.SessionSet</strong><br>
+<br>
+A JSP bean that returns <tt>java.util.Iterator</tt> implementations over SessionView instances. (The misnamed SessionSet bean implements neither the Set nor the List interface.) The bean is basically an implementation of IEventViewList that uses RowingUtils and IRowingSessionHome. The bean is responsible for the presentation of lists of rowing sessions. A SessionSet has four properties: <strong>iterator</strong>, <strong>restricted</strong>, <strong>month</strong>, <strong>year</strong>, and <strong>comparator</strong>.</li>
+<p>
+The read-only <tt>iterator</tt> property returns a sorted iteration over SessionView instances. The behavior of the iterator is specified by setting the <tt>restricted</tt>, <tt>month</tt>, <tt>year</tt> and <tt>comparator</tt> properties before the iterator is retrieved.<br>
+<br>
+The month and year properties restrict the iteration to a range of dates, from the beginning to the end of the specified month, if the <tt>restricted</tt> property is <tt>true</tt>. These properties correspond to the similarly named properties of the IEventViewList interface. See the description of that interface for more details.<br>
+<br>
+The comparator property holds the name of a class that implements the java.util.Comparator interface for SessionView instances; in other words, the comparator property specifies how SessionView objects are sorted on screen. The comparator property is optional, and in fact for this initial release, any value that is specified is ignored. The comparator defaults to a natural ordering of SessionView objects, which is ascending by date.</p>
+
+<li><strong>com.clra.web.SessionView</strong><br>
+<br>
+The presentation of a rowing session snapshot. A SessionView has five read-only String properties: <strong>id</strong>, <strong>date</strong>, <strong>state</strong>, <strong>level</strong> and <strong>type</strong>. A SessionView object is a very thin wrapper around RowingSessionSnapshot, and its main value-added is that it converts RowingSessionSnapshot properties from Objects to Strings.</li>
+<p>
+FIXME: currently SessionView does not handle the conversion of dates to strings. Conversion is done outside the bean, by standalone instances of the FormattedDate bean. Make these standalone formatting beans properties of SessionView.</p>
+
+<li><strong>com.clra.web.IEventViewList</strong><br>
+<br>
+An interface for beans that hold sorted lists of scheduled events. Used with the MonthViewSelector component. The interface is <strong>not</strong> an extension of either the <tt>java.util.Iterator</tt> or <tt>java.util.List</tt> interfaces. Rather, it defines the names of some session-scope attributes -- <strong>restricted</strong>, <strong>month</strong>, <strong>year</strong>, and <strong>comparator</strong> -- and some properties for configuring and accessing an iterator -- <strong>iterator</strong>, <strong>restricted</strong>, <strong>month</strong>, <strong>year</strong> and <strong>comparator</strong>.</li>
+<p>
+The <tt>restricted</tt> attribute is a boolean flag that indicates whether the iteration should be restricted to a range of start dates. If the attribute is true, the <tt>month</tt> and <tt>year</tt> attributes may be used to restrict the iteration to a particular month and year. If the <tt>month</tt> attribute is missing, the iteration is restricted to the current month. If the <tt>year</tt> attribute is missing, the iteration is restricted to current year.<br>
+<br>
+The <tt>month</tt> attribute is an integer in the range 0 (January) through 11 (December). If the month is outside this range, it is ignored and the last valid value of the attribute is used (if the <tt>restricted</tt> attribute is true).<br>
+<br>
+The <tt>year</tt> attribute is a four digit year; e.g. "2002". If the year has three or fewer digits, or five or more digits, it is ignored and the last valid value of the attribute is used (if the <tt>restricted</tt> attribute is true).<br>
+<br>
+The <tt>comparator</tt> attribute holds an implementation of <tt>java.util.Comparator</tt> that sorts the items of the interation. If the attribute is not set, the natural comparator of the items is used.<br>
+<br>
+The IEventViewList defines getter and setter methods for corresponding properties:<br>
+<br>
+&nbsp;&nbsp;<tt>Iterator getIterator()</tt><br>
+<br>
+&nbsp;&nbsp;<tt>boolean isRestricted()</tt><br>
+&nbsp;&nbsp;<tt>void setRestricted( boolean isRestricted )</tt><br>
+<br>
+&nbsp;&nbsp;<tt>int getMonth()</tt><br>
+&nbsp;&nbsp;<tt>void setMonth( int month )</tt><br>
+<br>
+&nbsp;&nbsp;<tt>int getYear()</tt><br>
+&nbsp;&nbsp;<tt>void setYear( int year )</tt><br>
+<br>
+&nbsp;&nbsp;<tt>int getComparator()</tt><br>
+&nbsp;&nbsp;<tt>void setComparator( Comparator comparator )</tt><br>
+<br>
+</p>
+
+<li><strong>com.clra.web.IEventView</strong><br>
+<br>
+An interface for beans that present scheduled events, which have a start date and a duration, in addition to implementation-dependent information about the event itself. It defines the names of some session-scope attributes -- Xxx, Yyy and Zzz-- and some properties for configuring and accessing data about the event -- <strong>Xxx</strong>, <strong>Yyy</strong>, and <strong>Zzz</strong>.</li>
+<p></p>
+<li><strong>com.clra.web.MonthViewSelector</strong><br>
+<br>
+</li><p></p>
+<li><strong>admin/sessionlist.jsp</strong><br>
+<br>
+Displays rowing sessions. It is built from a <tt>SessionSet</tt> and <tt>MonthViewSelector</tt>, as well as HTML formatting elements. The page contains links that submit various action requests to <tt>com.clra.web.EditRowingSessionAction</tt></li>
+<p>
+</p>
+<li><strong>admin/rowingsession.jsp</strong><br>
+<br>
+Gets and sets data from <tt>com.clra.web.RowingSessionForm</tt>, and submits an action request to <tt>com.clra.web.SaveRowingSessionAction</tt></li>
+<p>
+</p>
+</ul>
+<p></p>
+
+<h2>Controller (Action) components:</h2>
+<ul>
+<li><strong>com.clra.web.EditRowingSessionAction</strong></li><p></p>
+<li><strong>com.clra.web.SaveRowingSessionAction</strong></li><p></p>
+<li><strong>com.clra.web.RowingSessionForm</strong></li><p></p>
+</ul>
+<p></p>
+
+</body>
+</html>
+

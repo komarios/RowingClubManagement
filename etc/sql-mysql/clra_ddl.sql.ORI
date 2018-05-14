@@ -1,0 +1,253 @@
+
+ DROP TABLE IF EXISTS MemberRole ;
+
+ CREATE TABLE MemberRole (
+ member_id INTEGER NOT NULL,
+ Role VARCHAR(18) NOT NULL
+ ,
+ RoleGroup VARCHAR(18) NOT NULL
+
+ );
+
+ ALTER TABLE MemberRole
+ ADD ( PRIMARY KEY (member_id, Role, RoleGroup) ) ;
+
+ DROP TABLE IF EXISTS SessionCoach ;
+
+ CREATE TABLE SessionCoach (
+ rowing_id INTEGER NOT NULL,
+ member_id INTEGER NOT NULL
+ );
+
+ ALTER TABLE SessionCoach
+ ADD ( PRIMARY KEY (rowing_id, member_id) ) ;
+
+ DROP TABLE IF EXISTS Seat ;
+
+ CREATE TABLE Seat (
+ seat_id INTEGER NOT NULL,
+ rowing_id INTEGER NOT NULL,
+ boat_id INTEGER NOT NULL,
+ seat_number INTEGER NOT NULL
+
+ );
+
+ ALTER TABLE Seat
+ ADD ( PRIMARY KEY (seat_id) ) ;
+
+ CREATE UNIQUE INDEX seat_rowing_boat_seatnum_uk ON Seat
+ (
+ rowing_id DESC,
+ boat_id ASC,
+ seat_number ASC
+ );
+
+ DROP TABLE IF EXISTS Participant ;
+
+ CREATE TABLE Participant (
+ participant_id INTEGER NOT NULL,
+ rowing_id INTEGER NOT NULL,
+ member_id INTEGER NOT NULL,
+ requested VARCHAR(10) NULL
+ ,
+ initial_seat INTEGER NULL,
+ final_seat INTEGER NULL,
+ replaces_id INTEGER NULL,
+ attendance VARCHAR(8) NULL
+
+ );
+
+ ALTER TABLE Participant
+ ADD ( PRIMARY KEY (participant_id) ) ;
+
+ CREATE UNIQUE INDEX participant_rowing_member_uk ON Participant
+ (
+ rowing_id DESC,
+ member_id ASC
+ );
+
+ DROP TABLE IF EXISTS Member ;
+
+ CREATE TABLE Member (
+ member_id INTEGER NOT NULL,
+ account_name VARCHAR(20) NOT NULL,
+ account_passwd VARCHAR(20) NOT NULL,
+ clra_status VARCHAR(8) NOT NULL
+ ,
+ name_last VARCHAR(20) NOT NULL,
+ name_first VARCHAR(20) NOT NULL,
+ name_middle VARCHAR(20) NULL,
+ name_suffix VARCHAR(20) NULL,
+ email VARCHAR(40) NULL,
+ telephone_evening VARCHAR(25) NOT NULL,
+ telephone_day VARCHAR(25) NULL,
+ telephone_other VARCHAR(25) NULL,
+ address_street1 VARCHAR(40) NOT NULL,
+ address_street2 VARCHAR(40) NULL,
+ address_city VARCHAR(20) NOT NULL,
+ address_state CHAR(2) NOT NULL,
+ address_zip VARCHAR(10) NOT NULL,
+ clra_year INTEGER NOT NULL,
+ birthday DATETIME NULL
+ );
+
+ CREATE UNIQUE INDEX member_account_uk ON Member
+ (
+ account_name ASC
+ );
+
+ ALTER TABLE Member
+ ADD ( PRIMARY KEY (member_id) ) ;
+
+ DROP TABLE IF EXISTS Boating ;
+
+ CREATE TABLE Boating (
+ rowing_id INTEGER NOT NULL,
+ boat_id INTEGER NOT NULL,
+ oarset_id INTEGER NOT NULL,
+ boating_state VARCHAR(11) NOT NULL
+
+ );
+
+ ALTER TABLE Boating
+ ADD ( PRIMARY KEY (rowing_id, boat_id) ) ;
+
+ DROP TABLE IF EXISTS Boat ;
+
+ CREATE TABLE Boat (
+ boat_id INTEGER NOT NULL,
+ boat_name VARCHAR(20) NOT NULL,
+ boat_size INTEGER NOT NULL
+ ,
+ boat_type VARCHAR(5) NOT NULL
+
+ );
+
+ CREATE UNIQUE INDEX boat_name_uk ON Boat
+ (
+ boat_name ASC
+ );
+
+ ALTER TABLE Boat
+ ADD ( PRIMARY KEY (boat_id) ) ;
+
+ DROP TABLE IF EXISTS Oarset ;
+
+ CREATE TABLE Oarset (
+ oarset_id INTEGER NOT NULL,
+ oarset_name VARCHAR(20) NOT NULL,
+ oarset_size INTEGER NOT NULL
+ ,
+ oarset_type VARCHAR(5) NOT NULL
+
+ );
+
+ CREATE UNIQUE INDEX oarset_name_uk ON Oarset
+ (
+ oarset_name ASC
+ );
+
+ ALTER TABLE Oarset
+ ADD ( PRIMARY KEY (oarset_id) ) ;
+
+ DROP TABLE IF EXISTS RowingSession ;
+
+ CREATE TABLE RowingSession (
+ rowing_id INTEGER NOT NULL,
+ rowing_date DATETIME NOT NULL,
+ rowing_level VARCHAR(7) NOT NULL
+ ,
+ rowing_type VARCHAR(8) NOT NULL
+ ,
+ rowing_state VARCHAR(9) NOT NULL
+
+ );
+
+ ALTER TABLE RowingSession
+ ADD ( PRIMARY KEY (rowing_id) ) ;
+
+ ALTER TABLE MemberRole
+ ADD ( FOREIGN KEY (member_id)
+ REFERENCES Member ) ;
+
+ ALTER TABLE SessionCoach
+ ADD ( FOREIGN KEY (member_id)
+ REFERENCES Member ) ;
+
+ ALTER TABLE SessionCoach
+ ADD ( FOREIGN KEY (rowing_id)
+ REFERENCES RowingSession ) ;
+
+ ALTER TABLE Seat
+ ADD ( FOREIGN KEY (rowing_id, boat_id)
+ REFERENCES Boating ) ;
+
+ ALTER TABLE Participant
+ ADD ( FOREIGN KEY (final_seat)
+ REFERENCES Seat ) ;
+
+ ALTER TABLE Participant
+ ADD ( FOREIGN KEY (initial_seat)
+ REFERENCES Seat ) ;
+
+ ALTER TABLE Participant
+ ADD ( FOREIGN KEY (rowing_id)
+ REFERENCES RowingSession ) ;
+
+ ALTER TABLE Participant
+ ADD ( FOREIGN KEY (member_id)
+ REFERENCES Member ) ;
+
+ ALTER TABLE Participant
+ ADD ( FOREIGN KEY (replaces_id)
+ REFERENCES Participant ) ;
+
+ ALTER TABLE Boating
+ ADD ( FOREIGN KEY (oarset_id)
+ REFERENCES Oarset ) ;
+
+ ALTER TABLE Boating
+ ADD ( FOREIGN KEY (boat_id)
+ REFERENCES Boat ) ;
+
+ ALTER TABLE Boating
+ ADD ( FOREIGN KEY (rowing_id)
+ REFERENCES RowingSession ) ;
+
+ -- ALTER TABLE Member CACHE;
+
+ -- ALTER TABLE MemberRole CACHE;
+
+ -- ALTER TABLE RowingSession CACHE;
+
+ -- ALTER TABLE Boat CACHE;
+
+ -- ALTER TABLE Oarset CACHE;
+
+ DROP TABLE IF EXISTS Applicant;
+
+ CREATE TABLE Applicant (
+ name_last VARCHAR(20) NOT NULL,
+ name_first VARCHAR(20) NOT NULL,
+ name_middle VARCHAR(20) NULL,
+ name_suffix VARCHAR(20) NULL,
+ email VARCHAR(40) NULL,
+ telephone_evening VARCHAR(25) NOT NULL,
+ telephone_day VARCHAR(25) NULL,
+ telephone_other VARCHAR(25) NULL,
+ address_street1 VARCHAR(40) NOT NULL,
+ address_street2 VARCHAR(40) NULL,
+ address_city VARCHAR(20) NOT NULL,
+ address_state CHAR(2) NOT NULL,
+ address_zip VARCHAR(10) NOT NULL,
+ experience_year VARCHAR(5) NOT NULL,
+ recent_year VARCHAR(20) NOT NULL,
+ birthday DATETIME NULL,
+ sex CHAR(1) NOT NULL,
+ apply_date DATETIME NOT NULL,
+ status VARCHAR(10) NOT NULL
+ );
+
+ ALTER TABLE Applicant
+ ADD ( PRIMARY KEY (email) ) ;
+

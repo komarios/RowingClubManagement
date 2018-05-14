@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<deployment name="defaultClientConfig"
+            xmlns="http://xml.apache.org/axis/wsdd/"
+            xmlns:java="http://xml.apache.org/axis/wsdd/providers/java"
+            xmlns:handler="http://xml.apache.org/axis/wsdd/providers/handler">
+
+ <globalConfiguration>
+  <parameter name="sendMultiRefs" value="false"/>
+  <parameter name="sendXsiTypes" value="false"/>
+  <parameter name="sendXMLDeclaration" value="true"/>
+ </globalConfiguration>
+
+ <handler type="java:org.apache.axis.providers.java.RPCProvider"
+          name="RPCDispatcher"/>
+ <handler type="java:org.apache.axis.handlers.http.URLMapper"
+          name="URLMapper"/>
+ <handler type="java:org.apache.axis.providers.java.MsgProvider"
+          name="MsgDispatcher"/>
+ <handler type="java:org.apache.axis.transport.local.LocalResponder"
+          name="LocalResponder"/>
+
+ <service name="AdminService" provider="java:MSG">
+  <namespace>http://xml.apache.org/axis/wsdd/</namespace>
+  <parameter name="allowedMethods" value="AdminService"/>
+  <parameter name="enableRemoteAdmin" value="false"/>
+  <parameter name="className" value="org.apache.axis.utils.Admin"/>
+ </service>
+
+ <service name="Member" provider="java:RPC">
+  <parameter name="wsdlTargetNamespace"
+      value="urn:@xml-member-targetNamespace@"/>
+  <parameter name="wsdlServiceElement" value="IMemberXmlRpcService"/>
+  <parameter name="wsdlServicePort" value="Member"/>
+  <parameter name="className" value="com.clra.xml.MemberSoapBindingSkeleton"/>
+  <parameter name="wsdlPortType" value="IMemberXmlRpc"/>
+  <parameter name="allowedMethods" value="findAllMembers"/>
+  <parameter name="allowedRoles" value="MEMBER,CAPTAIN,MEMBERMGR,TREASURER"/>
+  <requestFlow>
+     <handler type="java:com.clra.xml.security.DBAuthenticationHandler"/>
+     <handler type="java:com.clra.xml.security.DBAuthorizationHandler"/>
+  </requestFlow>
+  <typeMapping
+    xmlns:ns="http://beans.xml.clra.com"
+    qname="ns:MemberBean"
+    type="java:com.clra.xml.beans.MemberBean"
+    serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+    deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+    encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+    />
+  <typeMapping
+    xmlns:ns="http://beans.xml.clra.com"
+    qname="ns:MemberNameBean"
+    type="java:com.clra.xml.beans.MemberNameBean"
+    serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+    deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+    encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+    />
+  <typeMapping
+    xmlns:ns="http://beans.xml.clra.com"
+    qname="ns:AddressBean"
+    type="java:com.clra.xml.beans.AddressBean"
+    serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+    deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+    encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+    />
+  <typeMapping
+    xmlns:ns="urn:@xml-member-targetNamespace@"
+    qname="ns:ArrayOf_tns1_MemberRoleBean"
+    type="java:com.clra.xml.beans.MemberRoleBean[]"
+    serializer="org.apache.axis.encoding.ser.ArraySerializerFactory"
+    deserializer="org.apache.axis.encoding.ser.ArrayDeserializerFactory"
+    encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+    />
+  <typeMapping
+    xmlns:ns="http://beans.xml.clra.com"
+    qname="ns:MemberRoleBean"
+    type="java:com.clra.xml.beans.MemberRoleBean"
+    serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+    deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+    encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+    />
+  <typeMapping
+    xmlns:ns="urn:@xml-member-targetNamespace@"
+    qname="ns:ArrayOf_tns1_MemberBean"
+    type="java:com.clra.xml.beans.MemberBean[]"
+    serializer="org.apache.axis.encoding.ser.ArraySerializerFactory"
+    deserializer="org.apache.axis.encoding.ser.ArrayDeserializerFactory"
+    encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+    />
+ </service>
+
+ <service name="Version" provider="java:RPC">
+  <parameter name="allowedMethods" value="getVersion"/>
+  <parameter name="className" value="org.apache.axis.Version"/>
+ </service>
+
+ <transport name="http">
+  <requestFlow>
+   <handler type="URLMapper"/>
+   <handler type="java:org.apache.axis.handlers.http.HTTPAuthHandler"/>
+  </requestFlow>
+ </transport>
+
+ <transport name="local">
+  <responseFlow>
+   <handler type="java:org.apache.axis.transport.local.LocalResponder"/>
+  </responseFlow>
+ </transport>
+
+</deployment>

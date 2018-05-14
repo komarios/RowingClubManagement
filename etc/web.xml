@@ -1,0 +1,200 @@
+<!DOCTYPE web-app 
+    PUBLIC "-//Sun Microsystems, Inc.//DTD Web Application 2.2//EN" 
+    "http://java.sun.com/j2ee/dtds/web-app_2_2.dtd">
+
+<web-app>
+
+    <display-name>CLRA Signup Prototype</display-name>
+    <description>
+	This is a prototype of a web application that allows members of
+        the Carnegie Lake Rowing Association and Learn-To-Row participants
+        to sign up for practices over the Internet.
+    </description>
+
+  <!-- Action Servlet Configuration -->
+  <servlet>
+    <servlet-name>action</servlet-name>
+    <servlet-class>org.apache.struts.action.ActionServlet</servlet-class>
+    <init-param>
+      <param-name>application</param-name>
+      <param-value>com.clra.web.clra</param-value>
+    </init-param>
+    <init-param>
+      <param-name>config</param-name>
+      <param-value>/WEB-INF/struts-config.xml</param-value>
+    </init-param>
+    <init-param>
+      <param-name>debug</param-name>
+      <param-value>2</param-value>
+    </init-param>
+    <init-param>
+      <param-name>detail</param-name>
+      <param-value>2</param-value>
+    </init-param>
+    <init-param>
+      <param-name>validate</param-name>
+      <param-value>true</param-value>
+    </init-param>
+    <load-on-startup>2</load-on-startup>
+  </servlet>
+
+  <!-- Membership export servlet -->
+  <servlet>
+    <servlet-name>MembershipExport</servlet-name>
+    <servlet-class>com.clra.web.MembershipServlet</servlet-class>
+  </servlet>
+
+
+  <!-- Action Servlet Mapping -->
+  <servlet-mapping>
+    <servlet-name>action</servlet-name>
+    <url-pattern>*.do</url-pattern>
+  </servlet-mapping>
+
+  <servlet-mapping>
+    <servlet-name>MembershipExport</servlet-name>
+    <url-pattern>/restricted/MembershipExport</url-pattern>
+  </servlet-mapping>
+
+
+  <!-- The Welcome File List -->
+  <welcome-file-list>
+    <welcome-file>membermenu.jsp</welcome-file>
+    <welcome-file>restricted/membermenu.jsp</welcome-file>
+    <welcome-file>../restricted/membermenu.jsp</welcome-file>
+  </welcome-file-list>
+
+
+  <!-- Application Tag Library Descriptor -->
+  <taglib>
+    <taglib-uri>/WEB-INF/app.tld</taglib-uri>
+    <taglib-location>/WEB-INF/app.tld</taglib-location>
+  </taglib>
+
+
+  <!-- Struts Tag Library Descriptors -->
+  <taglib>
+    <taglib-uri>/WEB-INF/struts-bean.tld</taglib-uri>
+    <taglib-location>/WEB-INF/struts-bean.tld</taglib-location>
+  </taglib>
+
+  <taglib>
+    <taglib-uri>/WEB-INF/struts-html.tld</taglib-uri>
+    <taglib-location>/WEB-INF/struts-html.tld</taglib-location>
+  </taglib>
+
+  <taglib>
+    <taglib-uri>/WEB-INF/struts-logic.tld</taglib-uri>
+    <taglib-location>/WEB-INF/struts-logic.tld</taglib-location>
+  </taglib>
+
+
+  <!-- Security for signup sheets -->
+  <security-constraint>
+    <web-resource-collection>
+      <web-resource-name>Restricted</web-resource-name>
+      <description>Login-dependent resources</description>
+      <url-pattern>/restricted/*</url-pattern>
+      <http-method>HEAD</http-method>
+      <http-method>GET</http-method>
+      <http-method>POST</http-method>
+      <http-method>PUT</http-method>
+      <http-method>DELETE</http-method>
+    </web-resource-collection>
+    <auth-constraint>
+      <role-name>MEMBER</role-name>
+      <role-name>COACH</role-name>
+    </auth-constraint>
+    <user-data-constraint>
+      <description>no description</description>
+      <transport-guarantee>NONE</transport-guarantee>
+    </user-data-constraint>
+  </security-constraint>
+
+  <!-- Security for club administration -->
+  <security-constraint>
+    <web-resource-collection>
+      <web-resource-name>Admin</web-resource-name>
+      <description>Club administration resources</description>
+      <url-pattern>/admin/*</url-pattern>
+      <http-method>HEAD</http-method>
+      <http-method>GET</http-method>
+      <http-method>POST</http-method>
+      <http-method>PUT</http-method>
+      <http-method>DELETE</http-method>
+    </web-resource-collection>
+    <auth-constraint>
+      <role-name>COACH</role-name>
+      <role-name>CAPTAIN</role-name>
+      <role-name>TREASURER</role-name>
+      <role-name>SESSIONMGR</role-name>
+      <role-name>MEMBERMGR</role-name>
+    </auth-constraint>
+    <user-data-constraint>
+      <description>no description</description>
+      <transport-guarantee>NONE</transport-guarantee>
+    </user-data-constraint>
+  </security-constraint>
+
+  <!-- Security for site administration -->
+  <security-constraint>
+    <web-resource-collection>
+      <web-resource-name>Sysadmin</web-resource-name>
+      <description>Site administration resources</description>
+      <url-pattern>/sysadmin/*</url-pattern>
+      <http-method>HEAD</http-method>
+      <http-method>GET</http-method>
+      <http-method>POST</http-method>
+      <http-method>PUT</http-method>
+      <http-method>DELETE</http-method>
+    </web-resource-collection>
+    <auth-constraint>
+      <role-name>SYSADMIN</role-name>
+    </auth-constraint>
+    <user-data-constraint>
+      <description>no description</description>
+      <transport-guarantee>NONE</transport-guarantee>
+    </user-data-constraint>
+  </security-constraint>
+
+  <!-- Login configuration -->
+  <login-config>
+    <auth-method>FORM</auth-method>
+    <form-login-config>
+      <form-login-page>/logon.jsp</form-login-page>
+      <form-error-page>/logonError.jsp</form-error-page>
+    </form-login-config>
+  </login-config>
+
+  <!-- Security roles -->
+  <security-role>
+    <description>CLRA member, LTR participant or CLRA contractor</description>
+    <role-name>MEMBER</role-name>
+  </security-role>
+  <security-role>
+    <description>Supervises practices</description>
+    <role-name>COACH</role-name>
+  </security-role>
+  <security-role>
+    <description>Schedules boats, practices, etc</description>
+    <role-name>CAPTAIN</role-name>
+  </security-role>
+  <security-role>
+    <description>Invoices members based on attendance</description>
+    <role-name>TREASURER</role-name>
+  </security-role>
+  <security-role>
+    <description>Takes attendance at a practice</description>
+    <role-name>SESSIONMGR</role-name>
+  </security-role>
+  <security-role>
+    <description>Manages membership in the CLRA</description>
+    <role-name>MEMBERMGR</role-name>
+  </security-role>
+  <security-role>
+    <description>Manages website</description>
+    <role-name>SYSADMIN</role-name>
+  </security-role>
+
+
+</web-app>

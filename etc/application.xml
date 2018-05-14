@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE application PUBLIC '-//Sun Microsystems, Inc.//DTD J2EE Application 1.3//EN' 'http://java.sun.com/dtd/application_1_3.dtd'>
+
+<application>
+    <display-name>Rowing Club Management</display-name>
+    <description>The Rowing Club Management application allows members and officer of a rowing club to organize club activities over the Internet.</description>
+
+    <module>
+    <web>
+        <web-uri>@war-jar@</web-uri>
+        <context-root>/@web-context-root@</context-root>
+    </web>
+    </module>
+
+    <module>
+    <web>
+        <web-uri>@xml-jar@</web-uri>
+        <context-root>/@xml-context-root@</context-root>
+    </web>
+    </module>
+
+    <module>
+        <ejb>@ejb-jar@</ejb>
+    </module>
+
+</application>

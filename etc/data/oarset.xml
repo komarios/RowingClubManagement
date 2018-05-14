@@ -1,0 +1,27 @@
+<oarset-list>
+	<oarset>
+		<oarset-name>Yellow</oarset-name>
+		<oarset-size>8</oarset-size>
+		<oarset-type>SWEEP</oarset-type>
+	</oarset>
+	<oarset>
+		<oarset-name>Red and Blue</oarset-name>
+		<oarset-size>8</oarset-size>
+		<oarset-type>SWEEP</oarset-type>
+	</oarset>
+	<oarset>
+		<oarset-name>Unadjustable</oarset-name>
+		<oarset-size>8</oarset-size>
+		<oarset-type>SWEEP</oarset-type>
+	</oarset>
+	<oarset>
+		<oarset-name>Red and Yellow</oarset-name>
+		<oarset-size>8</oarset-size>
+		<oarset-type>SWEEP</oarset-type>
+	</oarset>
+	<oarset>
+		<oarset-name>Green and White</oarset-name>
+		<oarset-size>8</oarset-size>
+		<oarset-type>SWEEP</oarset-type>
+	</oarset>
+</oarset-list>

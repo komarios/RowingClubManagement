@@ -1,0 +1,7 @@
+Manifest-version: 1.0
+
+Name: com/clra
+Implementation-Title: CLRA
+Implementation-Version: @app-version@
+Implementation-Vendor: "Carnegie Lake Rowing Association"
+

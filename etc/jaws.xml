@@ -1,0 +1,5 @@
+<jaws>
+        <datasource>java:/MuzeDS</datasource>
+        <type-mapping>Oracle8</type-mapping>
+</jaws> 
+

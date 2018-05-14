@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XML Spy v3.0 NT (http://www.xmlspy.com) by Richard Hall (Rick Hall) -->
+<!ELEMENT oarset-list (oarset)>
+<!ELEMENT oarset (oarset-name, oarset-type)>
+<!ELEMENT oarset-name (#PCDATA)>
+<!ELEMENT oarset-type (#PCDATA)>

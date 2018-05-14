@@ -1,0 +1,15 @@
+/* CLRA style sheet */
+/* $Revision: 1.6 $ $Date: 2003/02/22 20:45:28 $ */
+body { font-family: Times, serif; font-size: 14px;}
+td, input, select { font-family: Times, serif; font-size: 14px;}
+.header16 { font-size: 16px; font-weight: bold;}
+.ONumber { Color: 990000; font-weight: bold;}
+.smalllabel { font-size: 10px;}
+.textform { font-size: 12px; }
+.textred { Color: 990000; font-weight: bold;}
+.button {border-color:#ffcc66;background-color:#ffcc66;color:#000000;text-decoration: underline;border-style:none;font-weight: bold;font-size:16px}
+.banner  { font-family: Times, serif; font-size: 32px; font-weight: bold; }
+.memberinfoLabel { font-family: Time, serif; font-size: 16px; font-weight: bold; }
+.memberinfoData  { font-family: Times, serif; font-size: 16px; text-align:bottom; }
+.memberinfoNote  { height: 16px; font-family: Times, serif; font-size: 14px; text-align: top; }
+.copyright       { font face=Times; font-size: 10px; }

@@ -1,0 +1,82 @@
+<html>
+<!-- $Id: BuildProcess.html,v 1.2 2002/02/23 00:45:18 rphall Exp $ -->
+<head>
+<title>CLRA build process</title>
+</head>
+<body bgcolor="#ffffffff">
+<h1><a name="top">CLRA build process</a></h1>
+<p>
+$Revision: 1.2 $<br>
+$Date: 2002/02/23 00:45:18 $</p>
+<b>Contents</b>
+<ol>
+ <li><a href="#overview">Overview</a></li>
+ <li><a href="#targets">Build targets</a></li>
+</ol>
+<hr>
+<a name="overview"><h1>Overview</h1></a>
+<p>This document describes how to build the CLRA web application.</p>
+<p>PREREQUISITES:<ul>
+<li>
+<a href="InitialSetup.html">Initial setup for the CLRA web application</a>.</li>
+<li>
+<a href="DatabaseSetup.html">Setting up the CLRA database</a>.</li>
+<li>
+<a href="JBossSetup.html">Setting up JBoss</a>.</li>
+</ul>
+<p>
+This document assumes that an environment variable <tt>$CLRA_HOME</tt> has been set up which corresponds to the clra/clra-java directory, so that source code resides in <tt>$CLRA_HOME/src</tt>; web pages in <tt>$CLRA_HOME/web</tt>; shell scripts in <tt>$CLRA_HOME/bin</tt>; and so on:</p>
+<pre>
+    $CLRA_HOME
+        build.sh
+        /bin - script files
+        /doc - documentation
+        /etc - configuration and SQL files
+        /lib - all jar files needed to build and run the application
+        /src - com, test, and jmeter branches
+        /web - JSP and HTM files
+</pre>
+<p>
+<a href="#top">Back to top</a></p>
+<hr>
+<a name="targets"><h1>Build command</h1></a>
+The build script is located at the top of the $CLRA_HOME directory tree:
+<pre>
+    build.sh  (for Linux)
+</pre>
+The build script sets up a classpath that references necessary jar files in the lib directory and then invoke the ANT build tool. The ANT build tool uses a configuration file to drive a build. The configuration file is:
+<pre>
+    etc/build.xml
+</pre>
+At the top of <tt>build.xml</tt> is a default target for a build. Currently, the
+default target is:
+<pre>
+    clra-ear.deploy
+</pre>
+This target creates <tt>tmp</tt> (a working directory> and <tt>dist</tt> (an output directory). The target builds all Java class files from the Java source files under <tt>src</tt> into <tt>dist/classes</tt>; the target copies property files from <tt>src</tt> into the <tt>dist/classes</tt> tree; creates EJB, WAR and EAR jar files; and finally copies the EAR jar file to the <tt>$JBOSS_DIST/deploy</tt> directory. Under JBoss with an embedded Tomcat server, copying an EJB, WAR or EAR file into the <tt>$JBOSS_DIST/deploy</tt> deployment directory causes the file to be automatically deployed.</p>
+<p>
+Besides the <tt>clra-ear.deploy</tt> target, there are other targets that can be specified on the command line of either <tt>build.bat</tt> or <tt>build.sh</tt>:
+<ul>
+<li> <tt>clean</tt> -- removes the <tt>tmp</tt> and <tt>dist</tt> directories.</li>
+<li> <tt>build.core</tt> -- just compiles the Java source code</li>
+<li> <tt>clra-ejb.jar</tt> -- creates an EJB jar file.</li>
+<li> <tt>clra-war.jar</tt> -- creates a Web ARchive jar file.</li>
+<li> <tt>clra-ear.jar</tt> -- combines the <tt>clra.war</tt> and <tt>clra.jar</tt> files into an Enterprise ARchive jar file.</li>
+<li> <tt>javadoc-war.jar</tt> -- creates a WAR file with javadoc and other documentation.</li>
+<li> <tt>test</tt> -- runs recursive JUnit tests on the build.
+</ul>
+</p>
+<p>
+<a href="#top">Back to top</a></p>
+</body>
+</html>
+<!--
+$Log: BuildProcess.html,v $
+Revision 1.2  2002/02/23 00:45:18  rphall
+Fixed 'Back to top' links
+
+Revision 1.1  2002/02/22 22:44:17  rphall
+Initial version
+
+-->
+
